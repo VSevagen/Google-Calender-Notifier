@@ -1,0 +1,26 @@
+.sms-form {
+  text-align: left;
+  padding: 1em;
+  width: 97%;
+}
+.sms-form label {
+  display: block;
+}
+.sms-form input,
+.sms-form textarea {
+  font-size: 1em;
+  width: 100%;
+  box-sizing: border-box;
+}
+.sms-form .meet-detail {
+  height: 175px;
+}
+.sms-form div {
+  margin-bottom: 0.5em;
+}
+.sms-form button {
+  font-size: 1em;
+}
+.sms-form.error {
+  outline: 2px solid #f00;
+}
