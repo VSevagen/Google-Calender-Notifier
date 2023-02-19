@@ -60,16 +60,15 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
     const name = event.target.getAttribute('name');
     setMessage({...message, [name]: event.target.value});
   }
-
   const onSubmit = event => {
     event.preventDefault();
     const newMessage = message.to.split(',');
     setSubmitting(true);
     newMessage.forEach((newTo) => {
-      fetch('/api/messages', {
+      fetch(`${process.env.REACT_APP_TWILLIO_SERVER_URL}api/messages`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({to: newTo, body: message.body})
       })
