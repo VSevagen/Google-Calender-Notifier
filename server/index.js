@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pino = require('express-pino-logger')();
+const PORT = process.env.PORT || 3001;
 const client = require('twilio')(
   process.env.TWILIO_ACCOUNT_SID,
   process.env.TWILIO_AUTH_TOKEN
@@ -34,6 +35,6 @@ app.post('/api/messages', (req, res) => {
     });
 });
 
-app.listen(3001, () =>
+app.listen(PORT, () =>
   console.log('Express server is running on localhost:3001')
 );
