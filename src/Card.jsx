@@ -30,6 +30,10 @@ const SMSSender = styled.button`
   border: none;
   font-weight: bold;
   margin-bottom: 10px;
+  cursor: pointer;
+  :hover {
+    opacity: 0.6;
+  }
 `;
 
 const CardTitle = styled.p`

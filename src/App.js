@@ -26,42 +26,48 @@ const App = () => {
     }));
   };
 
-  const listUpcomingEvents = () => {
-    gapi.client.calendar.events
-      .list({
-        // Fetch events from user's primary calendar
-        calendarId: "primary",
-        showDeleted: true,
-        singleEvents: true,
-      })
-      .then(function (response) {
-        let events = response.result.items;
+  // const listUpcomingEvents = () => {
+  //   gapi.client.calendar.events
+  //     .list({
+  //       // Fetch events from user's primary calendar
+  //       calendarId: "primary",
+  //       showDeleted: true,
+  //       singleEvents: true,
+  //     })
+  //     .then(function (response) {
+  //       let events = response.result.items;
 
-        if (events.length > 0) {
-          setEvents(formatEvents(events));
-        }
-      });
-  };
+  //       if (events.length > 0) {
+  //         setEvents(formatEvents(events));
+  //       }
+  //     });
+  // };
 
-  const openSignInPopup = () => {
-    gapi.auth2.authorize(
-               { client_id: "628562319450-5060i9u3siu9ftub7jppup1r7b49vm1h.apps.googleusercontent.com", scope: SCOPES },
-               (res) => {
-                 if (res) {
-                   if (res.access_token)
-                     localStorage.setItem("access_token", res.access_token);
+  // const client = google.accounts.oauth2.initTokenClient({
+  //   client_id: 'YOUR_GOOGLE_CLIENT_ID',
+  //   callback: (tokenResponse) => {
+  //     access_token = tokenResponse.access_token;
+  //   },
+  //   scope: 'https://www.googleapis.com/auth/calendar.readonly',
+  // });
+
+//   const openSignInPopup = () => {
+//     gapi.auth2.authorize(
+//                { client_id: "628562319450-5060i9u3siu9ftub7jppup1r7b49vm1h.apps.googleusercontent.com", scope: SCOPES },
+//                (res) => {
+//                  if (res) {
+//                    if (res.access_token) {
+//                      localStorage.setItem("access_token", res.access_token);
+//                    }
  
-                   // Load calendar events after authentication
-                   gapi.client.load("calendar", "v3", listUpcomingEvents);
-                 }
-               }
-             );
- }  
+//                    // Load calendar events after authentication
+//                    gapi.client.load("calendar", "v3", listUpcomingEvents);
+//                  }
+//                }
+//              );
+//  }  
 
   const initClient = () => {
-    if (!localStorage.getItem("access_token")) {
-      openSignInPopup();
-    } else {
       // Get events if access token is found without sign in popup
       fetch(
      `https://www.googleapis.com/calendar/v3/calendars/primary/events?key=**************&orderBy=startTime&singleEvents=true`,
@@ -77,8 +83,6 @@ const App = () => {
             return res.json();
           } else {
             localStorage.removeItem("access_token");
-
-            openSignInPopup();
           }
         })
         .then((data) => {
@@ -86,7 +90,6 @@ const App = () => {
             setEvents(formatEvents(data.items));
           }
         });
-    }
   };
 
   React.useEffect(() => {

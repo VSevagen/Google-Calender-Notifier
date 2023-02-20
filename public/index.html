@@ -38,6 +38,31 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <script>
+      let client;
+      function InitTokenClient() {
+        client = google.accounts.oauth2.initTokenClient({
+          client_id: '628562319450-5060i9u3siu9ftub7jppup1r7b49vm1h.apps.googleusercontent.com',
+          callback: (tokenResponse) => {
+            access_token = tokenResponse.access_token;
+            if(window) {
+              window?.localStorage?.setItem('access_token', access_token);
+              const reloadTimeout = setTimeout(() => {
+                window?.location?.reload();
+              }, 1000)
+            }
+          },
+          scope: 'https://www.googleapis.com/auth/calendar.readonly',
+        });
+      }
+
+      function requestToken() {
+        client.requestAccessToken();
+      }
+
+      window.activateSignIn = requestToken;
+    </script>
+    <script src="https://accounts.google.com/gsi/client" async defer onload="InitTokenClient()"></script>
 </body>
 
 </html>

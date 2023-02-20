@@ -36,6 +36,10 @@ export const ModalCloseButton = styled.button`
   padding: 10px 15px;
   font-size: 17px;
   background-color: #DC3444;
+  cursor: pointer;
+  :hover {
+    opacity: 0.6;
+  }
 `;
 
 const SendButton = styled.button`
@@ -46,6 +50,10 @@ const SendButton = styled.button`
   width: 50%;
   padding: 10px 0 10px 0;
   border-radius: 10px;
+  cursor: pointer;
+  :hover {
+    opacity: 0.6;
+  }
 `;
 
 const Modal = ({ showModal = false, description = '', setShowModal, dateData, phoneNumbers }) => {
@@ -83,6 +91,9 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
           setSubmitting(false);
           setError(true);
         }
+      })
+      .catch(err => {
+        console.log(err);
       });
     })
   }

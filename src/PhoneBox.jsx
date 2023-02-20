@@ -67,6 +67,10 @@ color: white;
 outline: none;
 border: none;
 font-weight: bold;
+cursor: pointer;
+:hover {
+    opacity: 0.6;
+  }
 `;
 
 const RemoveButton = styled.button`
@@ -81,6 +85,10 @@ color: white;
 outline: none;
 border: none;
 font-weight: bold;
+cursor: pointer;
+:hover {
+    opacity: 0.6;
+  }
 `;
 
 const PhoneBox = ({phoneNumbers}) => {
