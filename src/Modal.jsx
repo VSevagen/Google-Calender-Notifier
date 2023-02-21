@@ -51,7 +51,10 @@ const SendButton = styled.button`
   padding: 10px 0 10px 0;
   border-radius: 10px;
   cursor: pointer;
-  :hover {
+  /* :hover {
+    opacity: 0.6;
+  } */
+  :disabled {
     opacity: 0.6;
   }
 `;
@@ -66,36 +69,83 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
 
   const onHandleChange = event => {
     const name = event.target.getAttribute('name');
-    setMessage({...message, [name]: event.target.value});
+    if(name === 'to') {
+      setMessage({...message, to: event.target.value.split(',')});
+    } else {
+      setMessage({...message, [name]: event.target.value});
+    }
   }
+
+  const sendTwillioRequest = async (requestDetails) => {
+    return new Promise((resolve, reject) => {
+      fetch(`${process.env.REACT_APP_TWILLIO_SERVER_URL}api/messages`, requestDetails)
+      .then(res => res.json())
+      .then(data => resolve(data))
+    })
+  }
+
   const onSubmit = event => {
     event.preventDefault();
-    const newMessage = message.to.split(',');
+    let userRequests = [];
+    for(let i = 0;i<message?.to?.length;i++) {
+      if(message?.to[i] !== undefined || message?.to[i] !== null) {
+        userRequests.push(sendTwillioRequest({
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({to: message?.to[i], body: message.body})
+        }));
+      }
+    }
+    // message?.to?.forEach((newTo) => {
+    //   if(newTo !== undefined || newTo !== null) {
+    //     userRequests.push(sendTwillioRequest({
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify({to: newTo, body: message.body})
+    //     }));
+    //   }
+    // })
     setSubmitting(true);
-    newMessage.forEach((newTo) => {
-      fetch(`${process.env.REACT_APP_TWILLIO_SERVER_URL}api/messages`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({to: newTo, body: message.body})
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.success) {
-          setSubmitting(false);
-          setError(false);
-          setMessage({...message, to: ""});
-          setShowModal(false);
-        } else {
-          setSubmitting(false);
-          setError(true);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    })
+    Promise.all(userRequests)
+    .then(result => {
+      console.log(result.find(item => item.success === false), result);
+      if(result.find(item => item.success === false)) {
+        setError(true);
+      } else {
+        setError(false);
+        setShowModal(false);
+        setSubmitting(false);
+      }
+    });
+
+    // newMessage.forEach((newTo) => {
+    //   fetch(`${process.env.REACT_APP_TWILLIO_SERVER_URL}api/messages`, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({to: newTo, body: message.body})
+    //   })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     if (data.success) {
+    //       setSubmitting(false);
+    //       setError(false);
+    //       setMessage({...message, to: ""});
+    //       setShowModal(false);
+    //     } else {
+    //       setSubmitting(false);
+    //       setError(true);
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
+    // })
   }
 
   const handleModalClose = () => {

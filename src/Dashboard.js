@@ -40,10 +40,10 @@ const Heading = styled.h2`
 `;
 
 const Dashboard = ({events, phoneNumbers}) => {
-  let numbers = '';
+  let numbers = [];
   phoneNumbers?.forEach(element => {
     if(element?.number !== null) {
-      numbers = numbers + element?.number + ",";
+      numbers.push(element?.number);
     }
   });
 
