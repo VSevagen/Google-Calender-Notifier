@@ -4,7 +4,7 @@ import Error from "./Error";
 
 export const ModalContainer = styled.div`
   display: ${prop => (prop.showModal ? "block" : "none")};
-  position: absolute;
+  position: fixed;
   z-index: 1;
   left: 50%;
   top: 50%;
@@ -14,14 +14,21 @@ export const ModalContainer = styled.div`
   overflow: auto;
   background-color: rgb(0, 0, 0);
   background-color: rgba(0, 0, 0, 0.4);
+  @media(min-width: 992px) {
+    position: absolute;
+  }
 `;
 
 export const ModalContent = styled.div`
   background-color: #fefefe;
-  margin: 15% auto;
+  margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%;
+  @media(min-width: 992px) {
+    margin: 15% auto;
+    width: 50%;
+    height: auto;
+  }
 `;
 
 export const ModalClose = styled.div`
@@ -184,7 +191,8 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
           </div>
           <div style={{display: "flex", justifyContent: "center"}}>
             <SendButton type="submit" disabled={submitting}>
-              Send message
+              { submitting && <span className="loader"></span>}
+              <span className="button-text">Send message</span>
             </SendButton>
           </div>
         </form>

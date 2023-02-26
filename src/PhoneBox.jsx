@@ -53,6 +53,8 @@ padding-right: 5px;
 const PhoneContainer = styled.div`
  display: flex;
  margin-top: 20px;
+ justify-content: center;
+ flex-wrap: wrap;
 `;
 
 const AddNumberButton = styled.button`

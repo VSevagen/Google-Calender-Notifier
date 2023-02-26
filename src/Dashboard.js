@@ -9,6 +9,7 @@ const CardMainContainer = styled.div`
  display: flex;
  flex-direction: row;
  flex-wrap: wrap;
+ justify-content: center;
 `;
 
 const GoogleButton = styled.button`
