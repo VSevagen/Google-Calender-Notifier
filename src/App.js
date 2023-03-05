@@ -3,6 +3,7 @@ import './App.css';
 import Dashboard from './Dashboard';
 import { gapi } from 'gapi-script';
 import PhoneBox from './PhoneBox';
+import Stats from './Stats';
 
 const SCOPES =
   "https://www.googleapis.com/auth/calendar.readonly";
@@ -106,6 +107,7 @@ const App = () => {
 
   return (
     <div className="App">
+        <Stats />
         <Dashboard events={events} phoneNumbers={phoneNumbers}/>
         <PhoneBox phoneNumbers={phoneNumbers}/>
     </div>
