@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import './App.css';
 import Dashboard from './Dashboard';
 import { gapi } from 'gapi-script';
@@ -7,6 +7,8 @@ import Stats from './Stats';
 
 const SCOPES =
   "https://www.googleapis.com/auth/calendar.readonly";
+
+export const NumberContext = createContext(null);
 
 
 const App = () => {
@@ -107,9 +109,11 @@ const App = () => {
 
   return (
     <div className="App">
+      <NumberContext.Provider value={phoneNumbers}>
         <Stats />
-        <Dashboard events={events} phoneNumbers={phoneNumbers}/>
-        <PhoneBox phoneNumbers={phoneNumbers}/>
+        <Dashboard events={events}/>
+        <PhoneBox />
+      </NumberContext.Provider>
     </div>
   );
 }

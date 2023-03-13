@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import Call from './assets/call.png'
+import { NumberContext } from "./App";
 
 const PhoneNumberTab = styled.div`
 display: grid;
@@ -93,8 +94,9 @@ cursor: pointer;
   }
 `;
 
-const PhoneBox = ({phoneNumbers}) => {
+const PhoneBox = () => {
 
+  const phoneNumbers = useContext(NumberContext);
   const [newNumber, setNewNumber] = React.useState('');
   const [newName, setNewName] = React.useState('');
 

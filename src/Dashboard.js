@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Dashboard.css';
 import Card from './Card';
 import styled from 'styled-components';
 
 import Search from './assets/search.png';
-
+import { NumberContext } from './App';
 const CardMainContainer = styled.div`
  display: flex;
  flex-direction: row;
@@ -40,7 +40,8 @@ padding-right: 10px;
 const Heading = styled.h2`
 `;
 
-const Dashboard = ({events, phoneNumbers}) => {
+const Dashboard = ({events}) => {
+  const phoneNumbers = useContext(NumberContext)
   let numbers = [];
   phoneNumbers?.forEach(element => {
     if(element?.number !== null) {
