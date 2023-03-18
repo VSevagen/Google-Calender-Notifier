@@ -1,39 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import Example from './Chart';
-import { format, sub } from "date-fns";
 
 import FailedMsg from './assets/failed-message.png';
 import Msg from './assets/mail.png';
 import SuccessMsg from './assets/chat.png'
-
-const currentDate = format(new Date(),  'MM/dd/yyyy');
-
-const data = [
-  {
-    name: sub(currentDate, { days: 7 })
-  },
-  {
-    name: sub(currentDate, { days: 6 })
-  },
-  {
-    name: sub(currentDate, { days: 5 })
-  },
-  {
-    name: sub(currentDate, { days: 4 })
-  },
-  {
-    name: sub(currentDate, { days: 3 })
-  },
-  {
-    name: sub(currentDate, { days: 2 })
-  },
-  {
-    name: sub(currentDate, { days: 1 })
-  }
-]
-
-console.log(data);
 
 const CardContainer = styled.div`
   display: flex;
@@ -145,12 +116,15 @@ const Stats = () => {
         </div>
       </Card>
     </CardContainer>
-    {console.log(stats)}
     <div style={{
       width: "1000px",
-      height: "500px"
+      height: "500px",
+      margin: "0 auto"
     }}>
-      <Example />
+      {stats ?
+        <Example stats={stats && stats}/> :
+        "Chart loading"
+      }
     </div>
   </>
   )

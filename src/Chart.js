@@ -1,74 +1,76 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import { format, sub } from "date-fns";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const data = [
-  {
-    name: "",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: "",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: "",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-  {
-    name: new Date().toDateString(),
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+export default class Example extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      stats: props.stats
+    };
+    console.log(props)
+    this.filterDates = this.filterDates.bind(this);
+  }
 
-// console.log(data);
-
-export default class Example extends PureComponent {
+  filterDates = (date, status) => {
+    let statusCount = 0;
+    if(this.state.stats) {
+      for(let i = 0;i < this.state.stats?.length; i++) {
+        const newDate = format(new Date(this.state.stats[i].dateSent), 'MM-dd-yyyy');
+        if( newDate === date && this.state.stats[i].status === status) {
+          statusCount = statusCount + 1;
+        }
+      }
+    }
+    return statusCount;
+  }
 
   render() {
+
+    const data = [
+      {
+        name: format(sub(new Date(), { days: 7 }), 'MM-dd-yyyy'),
+        delivered: this.filterDates(format(sub(new Date(), { days: 7 }), 'MM-dd-yyyy'), "delivered"),
+        undelivered: this.filterDates(format(sub(new Date(), { days: 7 }), 'MM-dd-yyyy'), "undelivered"),
+      },
+      {
+        name: format(sub(new Date(), { days: 6 }), 'MM-dd-yyyy'),
+        delivered: this.filterDates(format(sub(new Date(), { days: 6 }), 'MM-dd-yyyy'), "delivered"),
+        undelivered: this.filterDates(format(sub(new Date(), { days: 6 }), 'MM-dd-yyyy'), "undelivered"),
+      },
+      {
+        name: format(sub(new Date(), { days: 5 }), 'MM-dd-yyyy'),
+        delivered: this.filterDates(format(sub(new Date(), { days: 5 }), 'MM-dd-yyyy'), "delivered"),
+        undelivered: this.filterDates(format(sub(new Date(), { days: 5 }), 'MM-dd-yyyy'), "undelivered"),
+      },
+      {
+        name: format(sub(new Date(), { days: 4 }), 'MM-dd-yyyy'),
+        delivered: this.filterDates(format(sub(new Date(), { days: 4 }), 'MM-dd-yyyy'), "delivered"),
+        undelivered: this.filterDates(format(sub(new Date(), { days: 4 }), 'MM-dd-yyyy'), "undelivered"),
+      },
+      {
+        name: format(sub(new Date(), { days: 3 }), 'MM-dd-yyyy'),
+        delivered: this.filterDates(format(sub(new Date(), { days: 3 }), 'MM-dd-yyyy'), "delivered"),
+        undelivered: this.filterDates(format(sub(new Date(), { days: 3 }), 'MM-dd-yyyy'), "undelivered"),
+      },
+      {
+        name: format(sub(new Date(), { days: 2 }), 'MM-dd-yyyy'),
+        delivered: this.filterDates(format(sub(new Date(), { days: 2 }), 'MM-dd-yyyy'), "delivered"),
+        undelivered: this.filterDates(format(sub(new Date(), { days: 2 }), 'MM-dd-yyyy'), "undelivered"),
+      },
+      {
+        name: format(sub(new Date(), { days: 1 }), 'MM-dd-yyyy'),
+        delivered: this.filterDates(format(sub(new Date(), { days: 1 }), 'MM-dd-yyyy'), "delivered"),
+        undelivered: this.filterDates(format(sub(new Date(), { days: 1 }), 'MM-dd-yyyy'), "undelivered"),
+      },
+      {
+        name: format(new Date(), 'MM-dd-yyyy'),
+        delivered: this.filterDates(format(new Date(), 'MM-dd-yyyy'), "delivered"),
+        undelivered: this.filterDates(format(new Date(), 'MM-dd-yyyy'), "undelivered"),
+      }
+    ];
+
+    console.log("Stats", data);
     return (
       <ResponsiveContainer width="100%" height="100%">
         <LineChart
@@ -87,8 +89,8 @@ export default class Example extends PureComponent {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-          <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+          <Line type="monotone" dataKey="undelivered" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line type="monotone" dataKey="delivered" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
     );
