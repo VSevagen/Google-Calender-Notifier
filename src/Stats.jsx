@@ -35,98 +35,108 @@ const Text = styled.p`
   margin-top: -3px;
 `;
 
+const MemoizedStats = ({stats, undeliveredSMS, deliveredSMS}) => {
+  return (
+    <>
+      <CardContainer>
+        <Card>
+          <div style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            paddingTop: "20px"
+          }}>
+            <NumberStat>
+              {stats?.length || 0}
+              <Text>SMS Sent</Text>
+            </NumberStat>
+            <Img src={Msg} />
+          </div>
+        </Card>
+        <Card>
+          <div style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            paddingTop: "20px"
+          }}>
+            <NumberStat>
+              {undeliveredSMS() || 0}
+              <Text>Undelivered SMS</Text>
+            </NumberStat>
+            <Img src={FailedMsg} />
+          </div>
+        </Card>
+        <Card>
+          <div style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
+            paddingTop: "20px"
+          }}>
+            <NumberStat>
+              {deliveredSMS() || 0}
+              <Text>Delivered SMS</Text>
+            </NumberStat>
+            <Img src={SuccessMsg} />
+          </div>
+        </Card>
+      </CardContainer>
+      <div style={{
+        width: "1000px",
+        height: "500px",
+        margin: "0 auto"
+      }}>
+        {stats ?
+          <Example stats={stats && stats}/> :
+          "Chart loading"
+        }
+      </div>
+    </>
+  )
+};
+
+const fetchData = async () => {
+  const statData = await fetch(`${process.env.REACT_APP_TWILLIO_SERVER_URL}api/message`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return statData;
+};
+
 const Stats = () => {
   const [stats, setStats] = React.useState();
 
-  const fetchData = React.useCallback(async () => {
-    const statData = await fetch(`${process.env.REACT_APP_TWILLIO_SERVER_URL}api/message`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    return statData;
-  });
-
-  const undeliveredSMS = () => {
+  const undeliveredSMS = React.useCallback(() => {
     if(stats) {
       const num = stats?.filter(item => item?.status === "undelivered")?.length;
       return num;
     }
     return;
-  }
+  }, []);
 
-  const deliveredSMS = () => {
+  const deliveredSMS = React.useCallback(() => {
     if(stats) {
       const num = stats?.filter(item => item?.status === "delivered")?.length;
       return num;
     }
     return;
-  }
+  }, []);
   
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     fetchData()
     .then(res => res.json())
     .then(data => setStats(data));
   }, [])
 
+  React.useEffect(() => {
+    console.log("stats changed", stats)
+  }, [stats])
+
   return (
-  <>
-    <CardContainer>
-      <Card>
-        <div style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          paddingTop: "20px"
-        }}>
-          <NumberStat>
-            {stats?.length || 0}
-            <Text>SMS Sent</Text>
-          </NumberStat>
-          <Img src={Msg} />
-        </div>
-      </Card>
-      <Card>
-        <div style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          paddingTop: "20px"
-        }}>
-          <NumberStat>
-            {undeliveredSMS() || 0}
-            <Text>Undelivered SMS</Text>
-          </NumberStat>
-          <Img src={FailedMsg} />
-        </div>
-      </Card>
-      <Card>
-        <div style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-around",
-          paddingTop: "20px"
-        }}>
-          <NumberStat>
-            {deliveredSMS() || 0}
-            <Text>Delivered SMS</Text>
-          </NumberStat>
-          <Img src={SuccessMsg} />
-        </div>
-      </Card>
-    </CardContainer>
-    <div style={{
-      width: "1000px",
-      height: "500px",
-      margin: "0 auto"
-    }}>
-      {stats ?
-        <Example stats={stats && stats}/> :
-        "Chart loading"
-      }
-    </div>
-  </>
+    React.useMemo(() => <MemoizedStats stats={stats} undeliveredSMS={undeliveredSMS} deliveredSMS={deliveredSMS}/>, [stats, deliveredSMS, undeliveredSMS])
   )
 }
 
