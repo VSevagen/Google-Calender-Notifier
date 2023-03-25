@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Example from './Chart';
+import Loader from './Loader';
 
 import FailedMsg from './assets/failed-message.png';
 import Msg from './assets/mail.png';
@@ -8,7 +9,15 @@ import SuccessMsg from './assets/chat.png'
 
 const CardContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+`;
+
+const StatsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  @media(min-width: 992px) {
+    flex-direction: row-reverse;
+  }
 `;
 
 const Card = styled.div`
@@ -38,60 +47,66 @@ const Text = styled.p`
 const MemoizedStats = ({stats, undeliveredSMS, deliveredSMS}) => {
   return (
     <>
-      <CardContainer>
-        <Card>
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            paddingTop: "20px"
-          }}>
-            <NumberStat>
-              {stats?.length || 0}
-              <Text>SMS Sent</Text>
-            </NumberStat>
-            <Img src={Msg} />
-          </div>
-        </Card>
-        <Card>
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            paddingTop: "20px"
-          }}>
-            <NumberStat>
-              {undeliveredSMS() || 0}
-              <Text>Undelivered SMS</Text>
-            </NumberStat>
-            <Img src={FailedMsg} />
-          </div>
-        </Card>
-        <Card>
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-around",
-            paddingTop: "20px"
-          }}>
-            <NumberStat>
-              {deliveredSMS() || 0}
-              <Text>Delivered SMS</Text>
-            </NumberStat>
-            <Img src={SuccessMsg} />
-          </div>
-        </Card>
-      </CardContainer>
-      <div style={{
-        width: "1000px",
-        height: "500px",
-        margin: "0 auto"
-      }}>
-        {stats ?
-          <Example stats={stats && stats}/> :
-          "Chart loading"
-        }
-      </div>
+      <StatsContainer>
+        <CardContainer>
+          <Card>
+            <div style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              paddingTop: "20px"
+            }}>
+              <NumberStat>
+                {stats?.length || 0}
+                <Text>SMS Sent</Text>
+              </NumberStat>
+              <Img src={Msg} />
+            </div>
+          </Card>
+          <Card>
+            <div style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              paddingTop: "20px"
+            }}>
+              <NumberStat>
+                {undeliveredSMS() || 0}
+                <Text>Undelivered SMS</Text>
+              </NumberStat>
+              <Img src={FailedMsg} />
+            </div>
+          </Card>
+          <Card>
+            <div style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-around",
+              paddingTop: "20px"
+            }}>
+              <NumberStat>
+                {deliveredSMS() || 0}
+                <Text>Delivered SMS</Text>
+              </NumberStat>
+              <Img src={SuccessMsg} />
+            </div>
+          </Card>
+        </CardContainer>
+        <div style={{
+          width: "1000px",
+          height: "500px",
+          margin: "0 auto",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          {stats ?
+            <Example stats={stats && stats}/> :
+            <Loader />
+          }
+        </div>
+      </StatsContainer>
     </>
   )
 };
