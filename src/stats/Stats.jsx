@@ -131,7 +131,7 @@ const Stats = () => {
       return num;
     }
     return;
-  }, []);
+  }, [stats]);
 
   const deliveredSMS = React.useCallback(() => {
     if(stats) {
@@ -139,7 +139,7 @@ const Stats = () => {
       return num;
     }
     return;
-  }, []);
+  }, [stats]);
   
   React.useLayoutEffect(() => {
     fetchData()

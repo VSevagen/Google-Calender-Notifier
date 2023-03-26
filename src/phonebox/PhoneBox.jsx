@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
 import Call from '../assets/call.png'
-import { NumberContext } from "../App";
 
 const PhoneNumberTab = styled.div`
 display: grid;
@@ -96,9 +95,17 @@ cursor: pointer;
 
 const PhoneBox = () => {
 
-  const phoneNumbers = useContext(NumberContext);
+  const [phoneNumbers, setPhoneNumbers] = React.useState();
   const [newNumber, setNewNumber] = React.useState('');
   const [newName, setNewName] = React.useState('');
+
+  React.useLayoutEffect(() => {
+    if(window?.localStorage && localStorage.getItem('phoneNumbers') !== null) {
+      setPhoneNumbers(JSON.parse(localStorage.getItem('phoneNumbers')));
+    } else {
+      setPhoneNumbers([{number: null, name: null}]);
+    }
+  }, []);
 
   const checkDuplicate = () => {
     let numberData = phoneNumbers;
