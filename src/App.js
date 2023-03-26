@@ -1,9 +1,9 @@
 import React, { createContext } from 'react';
 import './App.css';
-import Dashboard from './Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import { gapi } from 'gapi-script';
-import PhoneBox from './PhoneBox';
-import Stats from './Stats';
+import PhoneBox from './phonebox/PhoneBox';
+import Stats from './stats/Stats';
 
 const SCOPES =
   "https://www.googleapis.com/auth/calendar.readonly";
@@ -28,8 +28,6 @@ const App = () => {
       end: item.end.dateTime || item.end.date,
     }));
   };
-
-  // const listUpcomingEvents = () => {
   //   gapi.client.calendar.events
   //     .list({
   //       // Fetch events from user's primary calendar

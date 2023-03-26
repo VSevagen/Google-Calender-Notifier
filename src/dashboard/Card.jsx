@@ -1,5 +1,5 @@
 import React from 'react';
-import Modal from './Modal';
+import Modal from '../modal/Modal';
 import styled from 'styled-components';
 
 const CardContainer = styled.div`

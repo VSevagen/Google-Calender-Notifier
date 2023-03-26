@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import Call from './assets/call.png'
-import { NumberContext } from "./App";
+import Call from '../assets/call.png'
+import { NumberContext } from "../App";
 
 const PhoneNumberTab = styled.div`
 display: grid;

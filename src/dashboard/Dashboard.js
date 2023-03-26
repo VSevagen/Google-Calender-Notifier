@@ -3,8 +3,8 @@ import './Dashboard.css';
 import Card from './Card';
 import styled from 'styled-components';
 
-import Search from './assets/search.png';
-import { NumberContext } from './App';
+import Search from '../assets/search.png';
+import { NumberContext } from '../App';
 const CardMainContainer = styled.div`
  display: flex;
  flex-direction: row;

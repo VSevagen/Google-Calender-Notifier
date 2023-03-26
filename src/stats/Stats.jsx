@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Example from './Chart';
 import Loader from './Loader';
 
-import FailedMsg from './assets/failed-message.png';
-import Msg from './assets/mail.png';
-import SuccessMsg from './assets/chat.png'
+import FailedMsg from '../assets/failed-message.png';
+import Msg from '../assets/mail.png';
+import SuccessMsg from '../assets/chat.png'
 
 const CardContainer = styled.div`
   display: flex;
@@ -17,6 +17,7 @@ const StatsContainer = styled.div`
   flex-direction: column;
   @media(min-width: 992px) {
     flex-direction: row-reverse;
+    justify-content: space-between;
   }
 `;
 
