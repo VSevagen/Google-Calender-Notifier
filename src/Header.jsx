@@ -3,6 +3,9 @@ import styled from "styled-components"
 import Home from './assets/home.png';
 import Stats from './assets/bar-chart.png';
 import Phonebook from './assets/phonebook.png';
+import WhitePhonebook from './assets/phonebook-white.png';
+import Whitehome from './assets/home-white.png';
+import WhiteStats from './assets/bar-chart-white.png';
 
 const HeaderWrapper = styled.header`
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
@@ -34,7 +37,18 @@ const HeaderItem = styled.a`
   flex-direction: column;
   align-items: center;
   text-decoration: none;
-  color: #3F78B0;
+  /* color: #3F78B0; */
+  background-color: ${props => props.pageActivated ? '#DC3444' : ''};
+  color: ${props => props.pageActivated ? 'white' : '#3F78B0'};
+
+  @media(min-width: 992px) {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border-radius: 50%;
+    min-width: 95px;
+    min-height: auto;
+  }
 `;
 
 const HeaderImg = styled.img`
@@ -43,19 +57,29 @@ const HeaderImg = styled.img`
 `;
 
 const Header = () => {
+
+  const determineUserLocation = React.useCallback((path) => {
+    const location = window && window?.location?.pathname;
+    if(path == location) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [window?.location?.pathname])
+
   return (
     <HeaderWrapper>
       <HeaderItemsWrapper>
-        <HeaderItem href="/homepage">
-          <HeaderImg src={Home}/>
+        <HeaderItem href="/homepage" pageActivated={determineUserLocation('/homepage')}>
+          <HeaderImg src={determineUserLocation('/homepage') ? Whitehome : Home}/>
           <span>Homepage</span>
         </HeaderItem>
-        <HeaderItem href="/phonebox">
-          <HeaderImg src={Phonebook}/>
+        <HeaderItem href="/phonebox" pageActivated={determineUserLocation('/phonebox')}>
+          <HeaderImg src={determineUserLocation('/phonebox') ? WhitePhonebook : Phonebook}/>
           <span>Phonebook</span>
         </HeaderItem>
-        <HeaderItem href="/stats">
-          <HeaderImg src={Stats}/>
+        <HeaderItem href="/stats" pageActivated={determineUserLocation('/stats')}>
+          <HeaderImg src={determineUserLocation('/stats') ? WhiteStats : Stats}/>
           <span>Stats</span>
         </HeaderItem>
       </HeaderItemsWrapper>
