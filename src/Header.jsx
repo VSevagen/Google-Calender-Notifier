@@ -11,6 +11,15 @@ const HeaderWrapper = styled.header`
   position: fixed;
   width: 100%;
   bottom: 0;
+  @media(min-width: 992px) {
+    position: absolute;
+    width: 50%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 10%;
+    border-radius: 25px;
+  }
 `;
 
 const HeaderItemsWrapper = styled.div`
