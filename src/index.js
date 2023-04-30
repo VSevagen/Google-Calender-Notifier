@@ -12,7 +12,7 @@ import PhoneBox from './phonebox/PhoneBox';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/homepage",
     element: <App />,
   },
   {

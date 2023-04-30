@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Call from '../assets/call.png'
+import Header from "../Header";
 
 const PhoneNumberTab = styled.div`
 display: grid;
@@ -175,6 +176,7 @@ const PhoneBox = () => {
       {(phoneNumbers?.length > 0 || phoneNumbers?.length === 0)  &&  (phoneNumbers[0]?.name === null || phoneNumbers[0]?.name === undefined) && (
         <div>No numbers registered yet</div>
       )}
+      <Header />
     </div>
   )
 }

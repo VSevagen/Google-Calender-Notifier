@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Example from './Chart';
 import Loader from './Loader';
+import Header from '../Header';
 
 import FailedMsg from '../assets/failed-message.png';
 import Msg from '../assets/mail.png';
@@ -107,6 +108,7 @@ const MemoizedStats = ({stats, undeliveredSMS, deliveredSMS}) => {
             <Loader />
           }
         </div>
+        <Header />
       </StatsContainer>
     </>
   )
