@@ -10,6 +10,9 @@ const CardMainContainer = styled.div`
  flex-direction: row;
  flex-wrap: wrap;
  justify-content: center;
+ @media(max-width: 992px) {
+  margin-bottom: 100px;
+ }
 `;
 
 const GoogleButton = styled.button`
