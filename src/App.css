@@ -58,12 +58,22 @@
   align-items: center;
 }
 
+.react-tel-input {
+  width: 300px !important;
+}
+
 @media(max-width: 992px) {
   .stats-wrapper {
     width: 320px;
     height: 300px;
   }
+
+  .react-tel-input {
+    width: auto !important;
+    margin-bottom: 10px;
+  }
 }
+
 
   @keyframes rotation {
   0% {

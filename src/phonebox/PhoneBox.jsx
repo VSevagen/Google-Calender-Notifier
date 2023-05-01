@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Call from '../assets/call.png'
 import Header from "../Header";
 
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+
 const PhoneNumberTab = styled.div`
 display: grid;
 justify-items:center;
@@ -103,16 +106,13 @@ const Form = styled.form`
 const FormInput = styled.input`
   margin-bottom: 10px;
   padding: 10px;
-  width: 70%;
-  @media(min-width: 992px) {
-    width: 50%;
-  }
+  min-width: 275px;
 `;
 
 const PhoneBox = () => {
 
   const [phoneNumbers, setPhoneNumbers] = React.useState();
-  const [newNumber, setNewNumber] = React.useState('');
+  const [newNumber, setNewNumber] = React.useState(null);
   const [newName, setNewName] = React.useState('');
 
   React.useLayoutEffect(() => {
@@ -171,8 +171,19 @@ const PhoneBox = () => {
     <div>
       <h2 style={{textAlign: "center"}}>Phone Numbers</h2>
       <Form onSubmit={(event) => handleAddNumber(event)}>
-        <FormInput type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>
-        <FormInput type="tel" placeholder="Enter phone number" value={newNumber} onChange={(event) => setNewNumber(event.target.value)} required/>
+        <FormInput type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>        <PhoneInput
+          country={'us'}
+          value={newNumber}
+          onChange={(phone) => {
+            setNewNumber(phone)
+          }}
+          disableCountryCode={true}
+          inputProps={{
+            name: "phone",
+            required: true,
+            placeholder: "Enter phone number"
+          }}
+        />
         <AddNumberButton type="submit">Save</AddNumberButton>
       </Form>
       <PhoneContainer>
