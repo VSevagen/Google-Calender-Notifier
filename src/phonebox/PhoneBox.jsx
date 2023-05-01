@@ -94,6 +94,21 @@ cursor: pointer;
   }
 `;
 
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FormInput = styled.input`
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 70%;
+  @media(min-width: 992px) {
+    width: 50%;
+  }
+`;
+
 const PhoneBox = () => {
 
   const [phoneNumbers, setPhoneNumbers] = React.useState();
@@ -154,12 +169,12 @@ const PhoneBox = () => {
 
   return (
     <div>
-      <h2>Phone Numbers</h2>
-      <form onSubmit={(event) => handleAddNumber(event)}>
-        <input type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>
-        <input type="tel" placeholder="Enter phone number" value={newNumber} onChange={(event) => setNewNumber(event.target.value)} style={{marginLeft: "7px"}} required/>
+      <h2 style={{textAlign: "center"}}>Phone Numbers</h2>
+      <Form onSubmit={(event) => handleAddNumber(event)}>
+        <FormInput type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>
+        <FormInput type="tel" placeholder="Enter phone number" value={newNumber} onChange={(event) => setNewNumber(event.target.value)} required/>
         <AddNumberButton type="submit">Save</AddNumberButton>
-      </form>
+      </Form>
       <PhoneContainer>
         {phoneNumbers?.length > 0 && phoneNumbers[0]?.name !== null && phoneNumbers?.map((item, index) =>(
           <PhoneNumberTab>
