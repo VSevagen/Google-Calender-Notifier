@@ -94,15 +94,7 @@ const MemoizedStats = ({stats, undeliveredSMS, deliveredSMS}) => {
             </div>
           </Card>
         </CardContainer>
-        <div style={{
-          width: "1000px",
-          height: "500px",
-          margin: "0 auto",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
+        <div className="stats-wrapper">
           {stats ?
             <Example stats={stats && stats}/> :
             <Loader />
