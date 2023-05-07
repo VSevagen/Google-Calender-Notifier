@@ -70,8 +70,8 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <HeaderItemsWrapper>
-        <HeaderItem href="/homepage" pageActivated={determineUserLocation('/homepage')}>
-          <HeaderImg src={determineUserLocation('/homepage') ? Whitehome : Home}/>
+        <HeaderItem href="/" pageActivated={determineUserLocation('/')}>
+          <HeaderImg src={determineUserLocation('/') ? Whitehome : Home}/>
           <span>Homepage</span>
         </HeaderItem>
         <HeaderItem href="/phonebox" pageActivated={determineUserLocation('/phonebox')}>
