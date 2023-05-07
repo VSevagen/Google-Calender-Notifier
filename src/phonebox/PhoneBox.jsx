@@ -5,6 +5,7 @@ import Header from "../Header";
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import { Dna } from "react-loader-spinner";
 
 const PhoneNumberTab = styled.div`
 display: grid;
@@ -69,6 +70,7 @@ padding-right: 10px;
 padding-top: 5px;
 padding-bottom: 5px;
 margin-left: 5px;
+margin-top: 10px;
 color: white;
 outline: none;
 border: none;
@@ -114,6 +116,7 @@ const PhoneBox = () => {
   const [phoneNumbers, setPhoneNumbers] = React.useState();
   const [newNumber, setNewNumber] = React.useState(null);
   const [newName, setNewName] = React.useState('');
+  const [countryEnabled, setCountryEnabled] = React.useState(null);
 
   React.useLayoutEffect(() => {
     if(window?.localStorage && localStorage.getItem('phoneNumbers') !== null) {
@@ -122,6 +125,21 @@ const PhoneBox = () => {
       setPhoneNumbers([{number: null, name: null}]);
     }
   }, []);
+
+  React.useLayoutEffect(() => {
+    const fetchData = async () => {
+      const statData = await fetch(`${process.env.REACT_APP_TWILLIO_SERVER_URL}api/country-configured`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      return statData;
+    };
+    fetchData()
+    .then(res => res.json())
+    .then(data => setCountryEnabled(data));
+  }, [])
 
   const checkDuplicate = () => {
     let numberData = phoneNumbers;
@@ -171,19 +189,33 @@ const PhoneBox = () => {
     <div>
       <h2 style={{textAlign: "center"}}>Phone Numbers</h2>
       <Form onSubmit={(event) => handleAddNumber(event)}>
-        <FormInput type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>        <PhoneInput
-          country={'us'}
-          value={newNumber}
-          onChange={(phone) => {
-            setNewNumber(phone)
-          }}
-          disableCountryCode={true}
-          inputProps={{
-            name: "phone",
-            required: true,
-            placeholder: "Enter phone number"
-          }}
+        {countryEnabled ?
+        <>
+          <FormInput type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>        <PhoneInput
+            country={countryEnabled ? JSON.parse(countryEnabled?.countries)?.[0] : []}
+            value={newNumber}
+            onChange={(phone) => {
+              setNewNumber(phone)
+            }}
+            disableCountryCode={true}
+            onlyCountries={countryEnabled ? JSON.parse(countryEnabled?.countries) : []}
+            inputProps={{
+              name: "phone",
+              required: true,
+              placeholder: "Enter phone number"
+            }}
+          />
+        </>
+        :
+        <Dna
+          visible={true}
+          height="85"
+          width="80"
+          ariaLabel="dna-loading"
+          wrapperStyle={{}}
+          wrapperClass="dna-wrapper"
         />
+        }
         <AddNumberButton type="submit">Save</AddNumberButton>
       </Form>
       <PhoneContainer>
