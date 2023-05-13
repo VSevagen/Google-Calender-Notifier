@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import './Dashboard.css';
 import Card from './Card';
+import Pagination from './Pagination';
 import styled from 'styled-components';
 
 import Search from '../assets/search.png';
@@ -45,6 +46,13 @@ const Heading = styled.h2`
 
 const Dashboard = ({events}) => {
   const phoneNumbers = useContext(NumberContext)
+  const [currentPage, setCurrentPage] = React.useState(1);
+  const [postPerPage] = React.useState(10);
+
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPosts = events?.slice(indexOfFirstPost, indexOfLastPost)
+
   let numbers = [];
   phoneNumbers?.forEach(element => {
     if(element?.number !== null) {
@@ -67,12 +75,13 @@ const Dashboard = ({events}) => {
         <span className="buttonText">Sign in with Google</span>
       </GoogleButton>}
       <CardMainContainer>
-        {events &&
-          events.map((item) => (
+        {currentPosts &&
+          currentPosts.map((item) => (
             <Card item={item} phoneNumbers={numbers}/>
           ))
         }
       </CardMainContainer>
+      <Pagination setPage={setCurrentPage} currentPage={currentPage} totalPosts={events} postPerPage={postPerPage}/>
     </div>
   );
 }

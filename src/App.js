@@ -20,7 +20,7 @@ const App = () => {
   };
 
   const formatEvents = (list) => {
-    return list.slice(list.length - 10, list.length).map((item) => ({
+    return list.slice(list.length - 25, list.length).map((item) => ({
       title: item.summary,
       description: item.description || "",
       start: item.start.dateTime || item.start.date,
