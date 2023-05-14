@@ -41,9 +41,6 @@ height: 25px;
 padding-right: 10px;
 `;
 
-const Heading = styled.h2`
-`;
-
 const Dashboard = ({events}) => {
   const phoneNumbers = useContext(NumberContext)
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -63,7 +60,7 @@ const Dashboard = ({events}) => {
   const [tokenPresent] = React.useState(window?.localStorage?.getItem('access_token'));
   return (
     <div>
-      <Heading>Your meetings</Heading>
+      <h2 className="text-2xl my-2">Your meetings</h2>
       {!tokenPresent && <GoogleButton onClick={
         () => {
           if(window && window?.activateSignIn) {

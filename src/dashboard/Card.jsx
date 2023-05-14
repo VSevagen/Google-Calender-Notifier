@@ -1,44 +1,5 @@
 import React from 'react';
 import Modal from '../modal/Modal';
-import styled from 'styled-components';
-
-const CardContainer = styled.div`
-  width: 300px;
-  min-height: 175px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: row;
-  margin: 0 20px 20px 20px;
-`;
-
-const CardDetails = styled.div`
-  margin: 0 auto;
-`;
-
-const BlueBar = styled.div`
-  width: 7px;
-  background-color: #14A2B8;
-  border-radius: 10px 0 0 10px;
-`;
-
-const SMSSender = styled.button`
-  padding: 5px 10px;
-  border-radius: 10px;
-  color: white;
-  background-color: #DC3444;
-  border: none;
-  font-weight: bold;
-  margin-bottom: 10px;
-  cursor: pointer;
-  :hover {
-    opacity: 0.6;
-  }
-`;
-
-const CardTitle = styled.p`
-  font-weight: bold;
-`;
 
 const Card = ({
 item,
@@ -57,15 +18,17 @@ phoneNumbers
 
   return (
     <>
-      <CardContainer>
-        <BlueBar />
-        <CardDetails>
-          <CardTitle>{item.title}</CardTitle>
-          <p>{startDate}</p>
-          <p>{endDate}</p>
-          <SMSSender onClick={() => handleSMSSender()}>Send SMS</SMSSender>
-        </CardDetails>
-      </CardContainer>
+      <div className="relative w-80 mx-5 my-2">
+        <div className="w-[7px] bg-[#14A2B8] rounded-[10px_0_0_10px] absolute h-full"/>
+        <div className="relative flex flex-row w-80 rounded shadow-[rgba(0,0,0,0.35)_0px_5px_15px] justify-center items-center min-h-[180px]">
+          <div className="flex flex-col items-center">
+            <p className="font-bold pt-2">{item.title}</p>
+            <p className="py-2">{startDate}</p>
+            <p className="py-2">{endDate}</p>
+            <button className="rounded-[10px] font-bold bg-[#DC3444] text-white w-24" onClick={() => handleSMSSender()}>Send SMS</button>
+          </div>
+        </div>
+      </div>
       <Modal showModal={showModal} setShowModal={setShowModal} description={item.title} dateData={dateData} phoneNumbers={phoneNumbers}/>
     </>
   )

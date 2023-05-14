@@ -612,6 +612,10 @@ video {
   border-width: 1px;
 }
 
+.p-8 {
+  padding: 2rem;
+}
+
 .outline {
   outline-style: solid;
 }

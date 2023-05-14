@@ -11,7 +11,7 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage}) => {
   return (
     <div>
       {paginationNums.map((ele) => (
-        <button disabled={ele === currentPage} onClick={() => {
+        <button className={`mx-2 px-3 py-1 text-white rounded ${ele === currentPage ? "bg-cyan-950" : "bg-sky-500"}`} disabled={ele === currentPage} onClick={() => {
           setPage(ele);
         }}>{ele}</button>
       ))}
