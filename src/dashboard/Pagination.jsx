@@ -6,10 +6,8 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage}) => {
     paginationNums.push(i);
   }
 
-  console.log(paginationNums, totalPosts, postPerPage);
-
   return (
-    <div>
+    <div className="mt-[10px]">
       {paginationNums.map((ele) => (
         <button className={`mx-2 px-3 py-1 text-white rounded ${ele === currentPage ? "bg-cyan-950" : "bg-sky-500"}`} disabled={ele === currentPage} onClick={() => {
           setPage(ele);

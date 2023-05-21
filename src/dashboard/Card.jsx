@@ -19,7 +19,7 @@ phoneNumbers
   return (
     <>
       <div className="relative w-80 mx-5 my-2">
-        <div className="w-[7px] bg-[#14A2B8] rounded-[10px_0_0_10px] absolute h-full"/>
+        <div className="w-[7px] bg-[#14A2B8] rounded-[10px_0_0_6px] absolute h-full"/>
         <div className="relative flex flex-row w-80 rounded shadow-[rgba(0,0,0,0.35)_0px_5px_15px] justify-center items-center min-h-[180px]">
           <div className="flex flex-col items-center">
             <p className="font-bold pt-2">{item.title}</p>
