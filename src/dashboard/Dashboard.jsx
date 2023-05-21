@@ -2,45 +2,9 @@ import React, { useContext } from 'react';
 import './Dashboard.css';
 import Card from './Card';
 import Pagination from './Pagination';
-import styled from 'styled-components';
 
 import Search from '../assets/search.png';
 import { NumberContext } from '../App';
-const CardMainContainer = styled.div`
- display: flex;
- flex-direction: row;
- flex-wrap: wrap;
- justify-content: center;
- margin: 0 10px 0 10px;
- @media(max-width: 992px) {
-  margin-bottom: 100px;
- }
-`;
-
-const GoogleButton = styled.button`
-  display: inline-block;
-  background: white;
-  color: #444;
-  width: 190px;
-  border-radius: 5px;
-  border: thin solid #888;
-  box-shadow: 1px 1px 1px grey;
-  white-space: nowrap;
-  cursor: pointer;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  :hover {
-    opacity: 0.6;
-  }
-`;
-
-const GoogleImage = styled.img`
-display: inline-block;
-vertical-align: middle;
-width: 25px;
-height: 25px;
-padding-right: 10px;
-`;
 
 const Dashboard = ({events}) => {
   const phoneNumbers = useContext(NumberContext)
@@ -62,23 +26,26 @@ const Dashboard = ({events}) => {
   return (
     <div>
       <h2 className="text-2xl my-2">Your meetings</h2>
-      {!tokenPresent && <GoogleButton onClick={
-        () => {
-          if(window && window?.activateSignIn) {
-            window.activateSignIn();
+      {!tokenPresent &&
+      <button 
+        className="rounded py-[10px] text-[#444] shadow-[1px_1px_1px_grey] border-[1px] border-[#888] hover:opacity-[0.6]"
+        onClick={
+          () => {
+            if(window && window?.activateSignIn) {
+              window.activateSignIn();
+            }
           }
-        }
-      }>
-        <GoogleImage src={Search} className="icon"></GoogleImage>
+        }>
+        <img className="w-[25px] h-[25px] icon inline mr-[10px]" src={Search}></img>
         <span className="buttonText">Sign in with Google</span>
-      </GoogleButton>}
-      <CardMainContainer>
+      </button>}
+      <div className="flex flex-row mx-[5px] flex-wrap justify-center mb-[100px] sm:mb-[0px]">
         {currentPosts &&
           currentPosts.map((item) => (
             <Card item={item} phoneNumbers={numbers}/>
           ))
         }
-      </CardMainContainer>
+      </div>
       <Pagination setPage={setCurrentPage} currentPage={currentPage} totalPosts={events} postPerPage={postPerPage}/>
     </div>
   );
