@@ -9,11 +9,12 @@ import App from './App';
 import Stats from './stats/Stats';
 import * as serviceWorker from './serviceWorker';
 import PhoneBox from './phonebox/PhoneBox';
+import AppWrapper from './AppWrapper';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <AppWrapper><App /></AppWrapper>,
   },
   {
     path: "/stats",
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/phonebox",
-    element: <PhoneBox />
+    element: <AppWrapper><PhoneBox /></AppWrapper>
   }
 ]);
 
