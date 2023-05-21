@@ -1,115 +1,10 @@
 import React from "react";
-import styled from "styled-components";
 import Call from '../assets/call.png'
 import Header from "../Header";
 
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { Dna } from "react-loader-spinner";
-
-const PhoneNumberTab = styled.div`
-display: grid;
-justify-items:center;
-padding: 20px 0 20px 0px;
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-margin-bottom: 10px;
-margin-left: 20px;
-margin-right: 20px;
-text-align: left;
-border-radius: 10px;
-width: 250px;
-`;
-
-const Index = styled.div`
-display: inline-block;
-padding-left: 10px;
-padding-right: 10px;
-background-color: #54aced;
-border-radius: 10px;;
-color: white;
-margin-bottom: 5px;
-`;
-
-const Number = styled.div`
-display: inline-block;
-padding-left: 10%;
-padding-right: 10%;
-text-align: right;
-color: grey;
-`;
-
-const Name = styled.div`
-display: inline-block;
-padding-left: 10%;
-padding-right: 10%;
-font-weight: bold;
-font-size: 20px;
-padding-bottom: 5px;
-text-align: center;
-`;
-
-const CallImage = styled.img`
-width: 26px;
-height: 26px;
-margin-bottom: -7px;
-padding-right: 5px;
-`;
-
-const PhoneContainer = styled.div`
- display: flex;
- margin-top: 20px;
- justify-content: center;
- flex-wrap: wrap;
-`;
-
-const AddNumberButton = styled.button`
-background-color: #6C757D;
-border-radius: 5px;
-padding-left: 10px;
-padding-right: 10px;
-padding-top: 5px;
-padding-bottom: 5px;
-margin-left: 5px;
-margin-top: 10px;
-color: white;
-outline: none;
-border: none;
-font-weight: bold;
-cursor: pointer;
-:hover {
-    opacity: 0.6;
-  }
-`;
-
-const RemoveButton = styled.button`
-background-color: #DC3444;
-border-radius: 5px;
-padding-left: 10px;
-padding-right: 10px;
-padding-top: 5px;
-padding-bottom: 5px;
-margin-top: 10px;
-color: white;
-outline: none;
-border: none;
-font-weight: bold;
-cursor: pointer;
-:hover {
-    opacity: 0.6;
-  }
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const FormInput = styled.input`
-  margin-bottom: 10px;
-  padding: 10px;
-  min-width: 275px;
-`;
 
 const PhoneBox = () => {
 
@@ -159,14 +54,11 @@ const PhoneBox = () => {
     event.preventDefault();
     let numberData = phoneNumbers;
     if(numberData[0]?.name === null) {
-      console.log("Reached if");
       numberData = [];
       numberData = [{name: newName, number: newNumber}]
       SaveToLocalStorage(numberData);
     } else {
-      console.log("Reached else");
       if(!checkDuplicate()) {
-        console.log("Reached inside else");
         numberData?.push({name: newName, number: newNumber});
         SaveToLocalStorage(numberData);
       } else {
@@ -187,11 +79,15 @@ const PhoneBox = () => {
 
   return (
     <div>
-      <h2 style={{textAlign: "center"}}>Phone Numbers</h2>
-      <Form onSubmit={(event) => handleAddNumber(event)}>
+      <h2 className="text-[24px] text-center">Phone Numbers</h2>
+      <form
+        className="flex items-center flex-col justify-center"
+        onSubmit={(event) => handleAddNumber(event)}
+      >
         {countryEnabled ?
         <>
-          <FormInput type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>        <PhoneInput
+          <input className="mb-[10px] p-[10px] w-[300px] border-slate-400 border-[1px] rounded" type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>
+          <PhoneInput
             country={countryEnabled ? JSON.parse(countryEnabled?.countries)?.[0] : []}
             value={newNumber}
             onChange={(phone) => {
@@ -216,21 +112,21 @@ const PhoneBox = () => {
           wrapperClass="dna-wrapper"
         />
         }
-        <AddNumberButton type="submit">Save</AddNumberButton>
-      </Form>
-      <PhoneContainer>
+        <button className="bg-[#6C757D] text-white rounded p-1 mt-2 hover:opacity-60" type="submit">Save</button>
+      </form>
+      <div className="flex justify-center flex-col items-center sm:flex-row mt-[20px]">
         {phoneNumbers?.length > 0 && phoneNumbers[0]?.name !== null && phoneNumbers?.map((item, index) =>(
-          <PhoneNumberTab>
-            <Index>#{index + 1}</Index>
-            <Name>{item?.name}</Name>
-            <Number>
-              <CallImage src={Call} alt="Phone icon" />
+          <div className="w-[250px] rounded mx-[20px] mb-[15px] py-[20px] shadow-[rgba(0,0,0,0.35)_0px_5px_15px] flex flex-col items-center">
+            <p className="bg-[#54aced] text-white px-[8px] rounded">#{index + 1}</p>
+            <p className="pt-[10px] font-bold text-[20px]">{item?.name}</p>
+            <div className="text-slate-400 flex">
+              <img  className="w-[26px] h-[26px]" src={Call} alt="Phone icon" />
               {item?.number}
-            </Number>
-            <RemoveButton onClick={() => removeNumber(item?.number)}>Delete</RemoveButton>
-          </PhoneNumberTab>
+            </div>
+            <button className="bg-[#DC3444] text-white rounded p-1 mt-2 hover:opacity-60" onClick={() => removeNumber(item?.number)}>Delete</button>
+          </div>
         ))}
-      </PhoneContainer>
+      </div>
       {(phoneNumbers?.length > 0 || phoneNumbers?.length === 0)  &&  (phoneNumbers[0]?.name === null || phoneNumbers[0]?.name === undefined) && (
         <div>No numbers registered yet</div>
       )}
