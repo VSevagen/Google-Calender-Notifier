@@ -11,6 +11,10 @@ import * as serviceWorker from './serviceWorker';
 import PhoneBox from './phonebox/PhoneBox';
 import AppWrapper from './AppWrapper';
 
+if(window.sessionStorage.getItem('theme') === undefined) {
+  window.sessionStorage.setItem('theme', 'light');
+}
+
 const router = createBrowserRouter([
   {
     path: "/",

@@ -1,47 +1,5 @@
 import React from "react";
-import styled from "styled-components"
 import { ThemeContext } from "./AppWrapper";
-
-const HeaderWrapper = styled.header`
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-  display: block;
-  background-color: #404040;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  @media(min-width: 992px) {
-    position: absolute;
-    width: 50%;
-    margin: auto;
-    left: 0;
-    right: 0;
-    bottom: 10%;
-    border-radius: 25px;
-  }
-`;
-
-const HeaderItemsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-`;
-
-const HeaderItem = styled.a`
-  padding: 20px 5px 20px 5px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-decoration: none;
-
-  @media(min-width: 992px) {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    border-radius: 50%;
-    min-width: 95px;
-    min-height: auto;
-  }
-`;
 
 const Header = () => {
 
@@ -50,11 +8,22 @@ const Header = () => {
   const determineUserLocation = React.useCallback((path) => {
     const location = window && window?.location?.pathname;
     if(path == location) {
-      return true;
+      if(theme === 'light') {
+        return "fill-[#4b5563]";
+      } else {
+        return "fill-[#fff]"
+      }
     } else {
-      return false;
+      return "fill-[#9ca3af]";
     }
-  }, [window?.location?.pathname])
+    // else {
+    //   if(theme === 'light') {
+    //     return "fill-[#4b5563]";
+    //   } else {
+    //     return "fill-[#fff]"
+    //   }
+    // }
+  }, [window?.location?.pathname, theme])
 
   const Brightness = (
     <svg className="w-[40px] h-[40px] p-[5px] outline-[#fbbf24] outline-2 outline rounded-[50%]" fill="#fbbf24" xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
@@ -69,19 +38,19 @@ const Header = () => {
   );
 
   const Home = (
-    <svg className={`w-[40px] h-[40px] p-[5px] hover:fill-[#fff] ${determineUserLocation("/") ? "fill-[#fff]": "fill-[#9ca3af]"}`} xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+    <svg className={`w-[40px] h-[40px] p-[5px] hover:fill-[#a1a1aa] ${determineUserLocation("/")}`} xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
       <path d="M12,14a3,3,0,0,0-3,3v7.026h6V17A3,3,0,0,0,12,14Z"/><path d="M13.338.833a2,2,0,0,0-2.676,0L0,10.429v10.4a3.2,3.2,0,0,0,3.2,3.2H7V17a5,5,0,0,1,10,0v7.026h3.8a3.2,3.2,0,0,0,3.2-3.2v-10.4Z"/>
     </svg>
   );
 
   const PhoneBook = (
-    <svg className={`w-[40px] h-[40px] p-[5px] hover:fill-[#fff] ${determineUserLocation("/phonebox") ? "fill-[#fff]": "fill-[#9ca3af]"}`} xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
+    <svg className={`w-[40px] h-[40px] p-[5px] hover:fill-[#a1a1aa] ${determineUserLocation("/phonebox")}`} xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="512" height="512">
       <path d="M20,0H3V3H1V5H3V7H1V9H3v2H1v2H3v2H1v2H3v2H1v2H3v3H20a3,3,0,0,0,3-3V3A3,3,0,0,0,20,0ZM13,4A3.5,3.5,0,1,1,9.5,7.5,3.5,3.5,0,0,1,13,4Zm6,14H17V16a1,1,0,0,0-1-1H10a1,1,0,0,0-1,1v2H7V16a3,3,0,0,1,3-3h6a3,3,0,0,1,3,3ZM11.5,7.5A1.5,1.5,0,1,1,13,9,1.5,1.5,0,0,1,11.5,7.5Z"/>
     </svg>
   );
 
   const Stats = (
-    <svg className={`w-[40px] h-[40px] p-[5px] hover:fill-[#fff] ${determineUserLocation("/stats") ? "fill-[#fff]": "fill-[#9ca3af]"}`}  xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" width="512" height="512">
+    <svg className={`w-[40px] h-[40px] p-[5px] hover:fill-[#a1a1aa] ${determineUserLocation("/stats")}`}  xmlns="http://www.w3.org/2000/svg" version="1.1" id="Layer_1" x="0px" y="0px" viewBox="0 0 512 512" width="512" height="512">
       <g>
         <path d="M257.209,65.285l-0.276-21.258h-21.258c-1.485-0.014-2.97-0.014-4.455,0C102.431,45.257-0.977,150.659,0.253,279.448   c1.23,128.79,106.632,232.197,235.421,230.967c128.729-0.141,233.052-104.455,233.205-233.183v-21.258H256.933L257.209,65.285z"/>
         <path d="M299.854,1.574L299.854,1.574l0,211.925h211.904C511.211,96.692,416.661,2.133,299.854,1.574z"/>
@@ -90,17 +59,22 @@ const Header = () => {
   );
 
   return (
-    <HeaderWrapper>
-      <HeaderItemsWrapper>
-        <HeaderItem href="/" pageActivated={determineUserLocation('/')}>
+    <div 
+      className={`
+        ${theme === 'light' ? "bg-white": "bg-[#404040]"}
+        shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_2px_6px_2px] w-full fixed bottom-0
+        sm:absolute sm:w-1/2 sm:left-0 sm:right-0 sm:bottom-[10%] sm:rounded-[25px] sm:m-auto`}
+    >
+      <div className="flex flex-row justify-evenly">
+        <a className="px-[5px] py-[20px] flex flex-col items-center justify-center" href="/" pageActivated={determineUserLocation('/')}>
           {Home}
-        </HeaderItem>
-        <HeaderItem href="/phonebox" pageActivated={determineUserLocation('/phonebox')}>
+        </a>
+        <a className="px-[5px] py-[20px] flex flex-col items-center justify-center" href="/phonebox" pageActivated={determineUserLocation('/phonebox')}>
           {PhoneBook}
-        </HeaderItem>
-        <HeaderItem href="/stats" pageActivated={determineUserLocation('/stats')}>
+        </a>
+        <a className="px-[5px] py-[20px] flex flex-col items-center justify-center" href="/stats" pageActivated={determineUserLocation('/stats')}>
           {Stats}
-        </HeaderItem>
+        </a>
         <button onClick={() => {
           if(theme === 'light') {
             setTheme('dark');
@@ -108,10 +82,10 @@ const Header = () => {
             setTheme('light');
           }
         }}>
-          {Moon}
+          {theme === 'light' ? Brightness : Moon}
         </button>
-      </HeaderItemsWrapper>
-    </HeaderWrapper>
+      </div>
+    </div>
   )
 }
 
