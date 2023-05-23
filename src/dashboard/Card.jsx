@@ -63,7 +63,7 @@ const Card = ({
   return (
     <>
       <div className={`relative w-80 mx-5 my-2`}>
-        <div className={`w-[7px] bg-[#14A2B8] ${theme === 'light' ? "bg-[#14A2B8]" : "bg-[#DDE6ED]"} rounded-[10px_0_0_6px] absolute h-full`}/>
+        <div className={`w-[7px] bg-[#14A2B8] ${theme === 'light' ? "bg-[#14A2B8]" : "bg-[#DDE6ED]"} rounded-[3px_0_0_3px] absolute h-full z-[1]`}/>
         <div className={`relative flex flex-row w-80 rounded shadow-[rgba(0,0,0,0.35)_0px_5px_15px] justify-center items-center min-h-[180px] ${theme === 'light' ? "bg-[#fff]" : "bg-[#27374D]"}`}>
           <div className={`flex flex-col items-center`}>
             <p className={`font-bold pt-2 px-[10px] ${theme === 'light' ? "text-black" : "text-[#DDE6ED]"}`}>

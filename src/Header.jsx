@@ -16,13 +16,6 @@ const Header = () => {
     } else {
       return "fill-[#9ca3af]";
     }
-    // else {
-    //   if(theme === 'light') {
-    //     return "fill-[#4b5563]";
-    //   } else {
-    //     return "fill-[#fff]"
-    //   }
-    // }
   }, [window?.location?.pathname, theme])
 
   const Brightness = (
@@ -62,6 +55,7 @@ const Header = () => {
     <div 
       className={`
         ${theme === 'light' ? "bg-white": "bg-[#404040]"}
+        z-[2]
         shadow-[rgba(60,64,67,0.3)_0px_1px_2px_0px,rgba(60,64,67,0.15)_0px_2px_6px_2px] w-full fixed bottom-0
         sm:absolute sm:w-1/2 sm:left-0 sm:right-0 sm:bottom-[10%] sm:rounded-[25px] sm:m-auto`}
     >
