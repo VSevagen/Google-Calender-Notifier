@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import Example from './Chart';
 import Loader from './Loader';
 import Header from '../Header';
@@ -8,92 +7,54 @@ import FailedMsg from '../assets/failed-message.png';
 import Msg from '../assets/mail.png';
 import SuccessMsg from '../assets/chat.png'
 
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const StatsContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  @media(min-width: 992px) {
-    flex-direction: row-reverse;
-    justify-content: space-between;
-  }
-`;
-
-const Card = styled.div`
-  width: 300px;
-  height: 100px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  margin: 25px auto;
-`;
-
-const NumberStat = styled.span`
-  font-size: 25px;
-  font-weight: bold;
-  text-align: left;
-`;
-
-const Img = styled.img`
-  width: 40px;
-  height: 40px;
-`;
-
-const Text = styled.p`
-  font-size: 15px;
-  font-weight: normal;
-  margin-top: -3px;
-`;
-
 const MemoizedStats = ({stats, undeliveredSMS, deliveredSMS}) => {
   return (
     <>
-      <StatsContainer>
-        <CardContainer>
-          <Card>
+      <div className={`flex flex-col sm:flex-row-reverse sm:justify-between`}>
+        <div className={`flex flex-col`}>
+          <div className={`w-[300px] h-[100px] my-[25px] mx-auto shadow-[rgba(0,0,0,0.24)_0px_3px_8px]`}>
             <div style={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-around",
               paddingTop: "20px"
             }}>
-              <NumberStat>
+              <span className={`text-bold text-[25px] text-left`}>
                 {stats?.length || 0}
-                <Text>SMS Sent</Text>
-              </NumberStat>
-              <Img src={Msg} />
+                <p className={`text-[15px] text-normal mt-[-3px]`}>SMS Sent</p>
+              </span>
+              <img className={`w-[40px] h-[40px]`} src={Msg} />
             </div>
-          </Card>
-          <Card>
+          </div>
+          <div className={`w-[300px] h-[100px] my-[25px] mx-auto shadow-[rgba(0,0,0,0.24)_0px_3px_8px]`}>
             <div style={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-around",
               paddingTop: "20px"
             }}>
-              <NumberStat>
+              <span className={`text-bold text-[25px] text-left`}>
                 {undeliveredSMS() || 0}
-                <Text>Undelivered SMS</Text>
-              </NumberStat>
-              <Img src={FailedMsg} />
+                <p className={`text-[15px] text-normal mt-[-3px]`}>Undelivered SMS</p>
+              </span>
+              <img className={`w-[40px] h-[40px]`} src={FailedMsg} />
             </div>
-          </Card>
-          <Card>
+          </div>
+          <div className={`w-[300px] h-[100px] my-[25px] mx-auto shadow-[rgba(0,0,0,0.24)_0px_3px_8px]`}>
             <div style={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-around",
               paddingTop: "20px"
             }}>
-              <NumberStat>
+              <span className={`text-bold text-[25px] text-left`}>
                 {deliveredSMS() || 0}
-                <Text>Delivered SMS</Text>
-              </NumberStat>
-              <Img src={SuccessMsg} />
+                <p className={`text-[15px] text-normal mt-[-3px]`}>Delivered SMS</p>
+              </span>
+              <img className={`w-[40px] h-[40px]`} src={SuccessMsg} />
             </div>
-          </Card>
-        </CardContainer>
+          </div>
+        </div>
         <div className="stats-wrapper">
           {stats ?
             <Example stats={stats && stats}/> :
@@ -101,7 +62,7 @@ const MemoizedStats = ({stats, undeliveredSMS, deliveredSMS}) => {
           }
         </div>
         <Header />
-      </StatsContainer>
+      </div>
     </>
   )
 };
