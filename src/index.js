@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/stats",
-    element: <Stats />
+    element: <AppWrapper><Stats /></AppWrapper>
   },
   {
     path: "/phonebox",

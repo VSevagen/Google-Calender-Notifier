@@ -5,9 +5,11 @@ import Pagination from './Pagination';
 
 import Search from '../assets/search.png';
 import { NumberContext } from '../App';
+import { ThemeContext } from '../AppWrapper';
 
 const Dashboard = ({events}) => {
   const phoneNumbers = useContext(NumberContext)
+  const { theme } = React.useContext(ThemeContext);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [postPerPage] = React.useState(10);
 
@@ -25,7 +27,7 @@ const Dashboard = ({events}) => {
   const [tokenPresent] = React.useState(window?.localStorage?.getItem('access_token'));
   return (
     <div>
-      <h2 className="text-2xl my-2">Your meetings</h2>
+      <h2 className={`text-4xl my-3 ${theme === 'light' ? "text-black" : "text-white"}`}>Your meetings</h2>
       {!tokenPresent &&
       <button 
         className="rounded py-[10px] text-[#444] shadow-[1px_1px_1px_grey] border-[1px] border-[#888] hover:opacity-[0.6]"
