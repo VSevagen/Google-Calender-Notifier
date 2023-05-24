@@ -34,7 +34,8 @@ const Card = ({
   }
 
   // startDate : Number Month (1 January);
-  let startDate = `${new Date(item.start).getDay()} ${months[new Date(item.start).getMonth()]}`
+  let startDate = `${new Date(item.start).getDate()} ${months[new Date(item.start).getMonth()]}`
+  console.log("StartDate", startDate, item.start, item);
 
   // startTime: 11:00 AM
   let startTime = `${new Date(item.start).getHours()}:${(new Date(item.start).getMinutes() < 10 ? "0":"") + new Date(item.start).getMinutes()} ${timeConvention(new Date(item.start).getHours())}`;
