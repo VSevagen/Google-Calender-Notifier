@@ -5,6 +5,7 @@ import Header from "../Header";
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { Dna } from "react-loader-spinner";
+import { ThemeContext } from "../AppWrapper";
 
 const PhoneBox = () => {
 
@@ -12,6 +13,7 @@ const PhoneBox = () => {
   const [newNumber, setNewNumber] = React.useState(null);
   const [newName, setNewName] = React.useState('');
   const [countryEnabled, setCountryEnabled] = React.useState(null);
+  const { theme } = React.useContext(ThemeContext)
 
   React.useLayoutEffect(() => {
     if(window?.localStorage && localStorage.getItem('phoneNumbers') !== null) {
@@ -79,14 +81,14 @@ const PhoneBox = () => {
 
   return (
     <div>
-      <h2 className="text-[24px] text-center">Phone Numbers</h2>
+      <h2 className={`text-3xl my-3 text-center ${theme === 'light' ? "text-black" : "text-white"}`}>Phone Numbers</h2>
       <form
         className="flex items-center flex-col justify-center"
         onSubmit={(event) => handleAddNumber(event)}
       >
         {countryEnabled ?
         <>
-          <input className="mb-[10px] p-[10px] w-[300px] border-slate-400 border-[1px] rounded" type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>
+          <input className="mb-[10px] p-[10px] w-[300px] h-[35px] border-slate-400 border-[1px] rounded" type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>
           <PhoneInput
             country={countryEnabled ? JSON.parse(countryEnabled?.countries)?.[0] : []}
             value={newNumber}
@@ -116,11 +118,19 @@ const PhoneBox = () => {
       </form>
       <div className="flex justify-center flex-col items-center sm:flex-row mt-[20px]">
         {phoneNumbers?.length > 0 && phoneNumbers[0]?.name !== null && phoneNumbers?.map((item, index) =>(
-          <div className="w-[250px] rounded mx-[20px] mb-[15px] py-[20px] shadow-[rgba(0,0,0,0.35)_0px_5px_15px] flex flex-col items-center">
+          <div
+            className={`w-[250px] rounded mx-[20px] mb-[15px] py-[20px] shadow-[rgba(0,0,0,0.35)_0px_5px_15px] flex flex-col items-center
+            ${theme === 'light' ? "bg-[#fff]" : "bg-[#27374D]"}`
+          }>
             <p className="bg-[#54aced] text-white px-[8px] rounded">#{index + 1}</p>
-            <p className="pt-[10px] font-bold text-[20px]">{item?.name}</p>
+            <p
+              className={`pt-[10px] font-bold text-[20px]
+              ${theme === 'light' ? "text-black" : "text-[#DDE6ED]"}`
+            }>
+              {item?.name}
+            </p>
             <div className="text-slate-400 flex">
-              <img  className="w-[26px] h-[26px]" src={Call} alt="Phone icon" />
+              <img  className="w-[26px] h-[26px] mr-[5px]" src={Call} alt="Phone icon" />
               {item?.number}
             </div>
             <button className="bg-[#DC3444] text-white rounded p-1 mt-2 hover:opacity-60" onClick={() => removeNumber(item?.number)}>Delete</button>

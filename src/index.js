@@ -9,19 +9,24 @@ import App from './App';
 import Stats from './stats/Stats';
 import * as serviceWorker from './serviceWorker';
 import PhoneBox from './phonebox/PhoneBox';
+import AppWrapper from './AppWrapper';
+
+if(window.sessionStorage.getItem('theme') === undefined) {
+  window.sessionStorage.setItem('theme', 'light');
+}
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <AppWrapper><App /></AppWrapper>,
   },
   {
     path: "/stats",
-    element: <Stats />
+    element: <AppWrapper><Stats /></AppWrapper>
   },
   {
     path: "/phonebox",
-    element: <PhoneBox />
+    element: <AppWrapper><PhoneBox /></AppWrapper>
   }
 ]);
 
