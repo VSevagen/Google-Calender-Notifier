@@ -1,70 +1,5 @@
 import React from "react";
-import styled from "styled-components";
 import Error from "./Error";
-
-export const ModalContainer = styled.div`
-  display: ${prop => (prop.showModal ? "block" : "none")};
-  position: fixed;
-  z-index: 1;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.4);
-  @media(min-width: 992px) {
-    position: absolute;
-  }
-`;
-
-export const ModalContent = styled.div`
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  @media(min-width: 992px) {
-    margin: 15% auto;
-    width: 50%;
-    height: auto;
-  }
-`;
-
-export const ModalClose = styled.div`
-  display: flex;
-  justify-content: flex-end;
-`;
-
-export const ModalCloseButton = styled.button`
-  color: white;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 15px;
-  font-size: 17px;
-  background-color: #DC3444;
-  cursor: pointer;
-  :hover {
-    opacity: 0.6;
-  }
-`;
-
-const SendButton = styled.button`
-  color: white;
-  background-color: #017BFE;
-  border: none;
-  font-weight: bold;
-  width: 50%;
-  padding: 10px 0 10px 0;
-  border-radius: 10px;
-  cursor: pointer;
-  /* :hover {
-    opacity: 0.6;
-  } */
-  :disabled {
-    opacity: 0.6;
-  }
-`;
 
 const Modal = ({ showModal = false, description = '', setShowModal, dateData, phoneNumbers }) => {
 
@@ -160,11 +95,20 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
   }
 
   return (
-    <ModalContainer showModal={showModal} id="myModal">
-      <ModalContent>
-        <ModalClose>
-          <ModalCloseButton onClick={() => handleModalClose()}>X</ModalCloseButton>
-        </ModalClose>
+    <div 
+      className={`
+        ${showModal ? "block" : "hidden"}
+        fixed left-[50%] top-[50%] translate-y-[-50%] translate-x-[-50%] w-screen w-full h-screen h-full overflow-auto
+        sm:absolute z-[2]`}
+      id="myModal"
+      >
+      <div className={`
+        bg-[#fefefe] m-auto p-[20px] sm:w-1/2 sm:h-auto mb-[15%] mx-auto border-2 border-solid border-[#888]
+        sm:my-[15%]`}
+      >
+        <div className={`flex justify-end`}>
+          <button className={`text-white bg-[#DC3444] py-[10px] px-[15px] rounded-[10px] text-[17px] cursor-pointer hover:opacity-[0.6]`} onClick={() => handleModalClose()}>X</button>
+        </div>
         <form
           onSubmit={onSubmit}
           className="sms-form"
@@ -190,15 +134,15 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
             />
           </div>
           <div style={{display: "flex", justifyContent: "center"}}>
-            <SendButton type="submit" disabled={submitting}>
+            <button className={`text-white bg-[#017BFE] text-bold w-1/2 py-[10px] rounded disabled:opacity-[0.6] cursor-pointer`} type="submit" disabled={submitting}>
               { submitting && <span className="loader"></span>}
               <span className="button-text">Send message</span>
-            </SendButton>
+            </button>
           </div>
         </form>
         {error && <Error />}
-      </ModalContent>
-    </ModalContainer>
+      </div>
+    </div>
   );
 };
 
