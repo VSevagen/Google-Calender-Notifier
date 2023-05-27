@@ -6,37 +6,23 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { Dna } from "react-loader-spinner";
 import { ThemeContext } from "../AppWrapper";
+import Form from "./Form";
 
 const PhoneBox = () => {
 
   const [phoneNumbers, setPhoneNumbers] = React.useState();
   const [newNumber, setNewNumber] = React.useState(null);
   const [newName, setNewName] = React.useState('');
-  const [countryEnabled, setCountryEnabled] = React.useState(null);
+  // const [countryEnabled, setCountryEnabled] = React.useState(null);
   const { theme } = React.useContext(ThemeContext)
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     if(window?.localStorage && localStorage.getItem('phoneNumbers') !== null) {
       setPhoneNumbers(JSON.parse(localStorage.getItem('phoneNumbers')));
     } else {
       setPhoneNumbers([{number: null, name: null}]);
     }
-  }, []);
-
-  React.useLayoutEffect(() => {
-    const fetchData = async () => {
-      const statData = await fetch(`${process.env.REACT_APP_TWILLIO_SERVER_URL}api/country-configured`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      return statData;
-    };
-    fetchData()
-    .then(res => res.json())
-    .then(data => setCountryEnabled(data));
-  }, [])
+  }, [window?.localStorage]);
 
   const checkDuplicate = () => {
     let numberData = phoneNumbers;
@@ -86,34 +72,7 @@ const PhoneBox = () => {
         className="flex items-center flex-col justify-center"
         onSubmit={(event) => handleAddNumber(event)}
       >
-        {countryEnabled ?
-        <>
-          <input className="mb-[10px] p-[10px] w-[300px] h-[35px] border-slate-400 border-[1px] rounded" type="text" placeholder="Enter name" value={newName} onChange={(event) => setNewName(event.target.value)} required/>
-          <PhoneInput
-            country={countryEnabled ? JSON.parse(countryEnabled?.countries)?.[0] : []}
-            value={newNumber}
-            onChange={(phone) => {
-              setNewNumber(phone)
-            }}
-            disableCountryCode={true}
-            onlyCountries={countryEnabled ? JSON.parse(countryEnabled?.countries) : []}
-            inputProps={{
-              name: "phone",
-              required: true,
-              placeholder: "Enter phone number"
-            }}
-          />
-        </>
-        :
-        <Dna
-          visible={true}
-          height="85"
-          width="80"
-          ariaLabel="dna-loading"
-          wrapperStyle={{}}
-          wrapperClass="dna-wrapper"
-        />
-        }
+        <Form newNumber={newNumber} setNewNumber={setNewNumber} newName={newName} setNewName={setNewName}/>
         <button className="bg-[#6C757D] text-white rounded p-1 mt-2 hover:opacity-60" type="submit">Save</button>
       </form>
       <div className="flex justify-center flex-col items-center sm:flex-row mt-[20px]">
