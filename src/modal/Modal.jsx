@@ -1,10 +1,12 @@
 import React from "react";
+import { ThemeContext } from "../AppWrapper";
 import Error from "./Error";
 
 const Modal = ({ showModal = false, description = '', setShowModal, dateData, phoneNumbers }) => {
 
   const textAreaData = `${description}\nStart: ${dateData.startDate}\nEnd: ${dateData.endDate}`
 
+  const {theme} = React.useContext(ThemeContext);
   const [message, setMessage] = React.useState({to: phoneNumbers, body: textAreaData})
   const [submitting, setSubmitting] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -40,17 +42,6 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
         }));
       }
     }
-    // message?.to?.forEach((newTo) => {
-    //   if(newTo !== undefined || newTo !== null) {
-    //     userRequests.push(sendTwillioRequest({
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify({to: newTo, body: message.body})
-    //     }));
-    //   }
-    // })
     setSubmitting(true);
     Promise.all(userRequests)
     .then(result => {
@@ -63,31 +54,6 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
         setSubmitting(false);
       }
     });
-
-    // newMessage.forEach((newTo) => {
-    //   fetch(`${process.env.REACT_APP_TWILLIO_SERVER_URL}api/messages`, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({to: newTo, body: message.body})
-    //   })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     if (data.success) {
-    //       setSubmitting(false);
-    //       setError(false);
-    //       setMessage({...message, to: ""});
-    //       setShowModal(false);
-    //     } else {
-    //       setSubmitting(false);
-    //       setError(true);
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-    // })
   }
 
   const handleModalClose = () => {
@@ -103,8 +69,10 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
       id="myModal"
       >
       <div className={`
-        bg-[#fefefe] m-auto p-[20px] sm:w-1/2 sm:h-auto mb-[15%] mx-auto border-2 border-solid border-[#888]
-        sm:my-[15%]`}
+        ${theme === 'light' ? "bg-[#fefefe]" : "bg-[#262626]"}
+        ${theme === 'light' ? "border-black" : "border-white"}
+        rounded m-auto p-[20px] sm:w-1/2 sm:h-auto mb-[15%] mx-auto border-2 border-solid
+        sm:my-[15%] relative z-[2]`}
       >
         <div className={`flex justify-end`}>
           <button className={`text-white bg-[#DC3444] py-[10px] px-[15px] rounded-[10px] text-[17px] cursor-pointer hover:opacity-[0.6]`} onClick={() => handleModalClose()}>X</button>
@@ -114,7 +82,12 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
           className="sms-form"
         >
           <div>
-            <label htmlFor="to" className="block text-sm text-slate-700 font-bold">To:</label>
+            <label htmlFor="to" className={`
+              ${theme === 'light' ? "text-slate-700" : "text-white"}
+              block text-sm font-bold`
+            }>
+              To:
+            </label>
             <input
               className="px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm
               focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
@@ -127,7 +100,12 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
             />
           </div>
           <div>
-            <label htmlFor="body" className="block text-sm font-bold text-slate-700">Body:</label>
+            <label htmlFor="body" className={`
+              ${theme === 'light' ? "text-slate-700" : "text-white"}
+              block text-sm font-bold`
+              }>
+                Body:
+            </label>
             <textarea
               className="meet-detail px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm
               focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
@@ -147,6 +125,7 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
         </form>
         {error && <Error />}
       </div>
+      <div className="bg-black opacity-[0.6] w-full w-screen h-screen absolute top-[0]"></div>
     </div>
   );
 };
