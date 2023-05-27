@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "date-fns": "^2.29.3",
-    "gapi-script": "^1.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-loader-spinner": "^5.3.4",
