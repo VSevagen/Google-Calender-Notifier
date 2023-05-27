@@ -1,23 +1,14 @@
 import React, { createContext } from 'react';
 import './App.css';
 import Dashboard from './dashboard/Dashboard';
-import { gapi } from 'gapi-script';
 import Header from './Header';
 
-const SCOPES =
-  "https://www.googleapis.com/auth/calendar.readonly";
-
 export const NumberContext = createContext(null);
-
 
 const App = () => {
 
   const [events, setEvents] = React.useState(null);
   const [phoneNumbers, setPhoneNumbers] = React.useState();
-
-  const handleClientLoad = () => {
-    gapi.load("client:auth2", initClient);
-  };
 
   const formatEvents = (list) => {
     return list.slice(list.length - 25, list.length).map((item) => ({
@@ -27,45 +18,6 @@ const App = () => {
       end: item.end.dateTime || item.end.date,
     }));
   };
-  //   gapi.client.calendar.events
-  //     .list({
-  //       // Fetch events from user's primary calendar
-  //       calendarId: "primary",
-  //       showDeleted: true,
-  //       singleEvents: true,
-  //     })
-  //     .then(function (response) {
-  //       let events = response.result.items;
-
-  //       if (events.length > 0) {
-  //         setEvents(formatEvents(events));
-  //       }
-  //     });
-  // };
-
-  // const client = google.accounts.oauth2.initTokenClient({
-  //   client_id: 'YOUR_GOOGLE_CLIENT_ID',
-  //   callback: (tokenResponse) => {
-  //     access_token = tokenResponse.access_token;
-  //   },
-  //   scope: 'https://www.googleapis.com/auth/calendar.readonly',
-  // });
-
-//   const openSignInPopup = () => {
-//     gapi.auth2.authorize(
-//                { client_id: "628562319450-5060i9u3siu9ftub7jppup1r7b49vm1h.apps.googleusercontent.com", scope: SCOPES },
-//                (res) => {
-//                  if (res) {
-//                    if (res.access_token) {
-//                      localStorage.setItem("access_token", res.access_token);
-//                    }
- 
-//                    // Load calendar events after authentication
-//                    gapi.client.load("calendar", "v3", listUpcomingEvents);
-//                  }
-//                }
-//              );
-//  }  
 
   const initClient = () => {
       // Get events if access token is found without sign in popup
@@ -93,7 +45,7 @@ const App = () => {
   };
 
   React.useEffect(() => {
-    handleClientLoad();
+    initClient();
   }, []);
 
   React.useLayoutEffect(() => {
@@ -107,9 +59,7 @@ const App = () => {
   return (
     <div className="App">
       <NumberContext.Provider value={phoneNumbers}>
-        {/* <Stats /> */}
         <Dashboard events={events}/>
-        {/* <PhoneBox /> */}
         <Header />
       </NumberContext.Provider>
     </div>
