@@ -114,8 +114,11 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
           className="sms-form"
         >
           <div>
-            <label htmlFor="to">To:</label>
+            <label htmlFor="to" className="block text-sm text-slate-700 font-bold">To:</label>
             <input
+              className="px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm
+              focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+              disabled:bg-slate-50"
               type="tel"
               name="to"
               id="to"
@@ -124,9 +127,11 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
             />
           </div>
           <div>
-            <label htmlFor="body">Body:</label>
+            <label htmlFor="body" className="block text-sm font-bold text-slate-700">Body:</label>
             <textarea
-              className="meet-detail"
+              className="meet-detail px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm
+              focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500
+              disabled:bg-slate-50"
               name="body"
               id="body"
               value={message.body}

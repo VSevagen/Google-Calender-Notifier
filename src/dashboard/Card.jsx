@@ -86,7 +86,7 @@ const Card = ({
           </div>
         </div>
       </div>
-      <Modal showModal={showModal} setShowModal={setShowModal} description={item.title} dateData={dateData} phoneNumbers={phoneNumbers}/>
+      <Modal showModal={true} setShowModal={setShowModal} description={item.title} dateData={dateData} phoneNumbers={phoneNumbers}/>
     </>
   )
 }
