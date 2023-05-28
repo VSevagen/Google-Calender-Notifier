@@ -6,6 +6,7 @@ import Pagination from './Pagination';
 import Search from '../assets/search.png';
 import { NumberContext } from '../App';
 import { ThemeContext } from '../AppWrapper';
+import Intro from '../intro/Intro';
 
 const Dashboard = ({events}) => {
   const phoneNumbers = useContext(NumberContext)
@@ -28,7 +29,7 @@ const Dashboard = ({events}) => {
   return (
     <div>
       <h2 className={`text-4xl my-3 ${theme === 'light' ? "text-black" : "text-white"}`}>Your meetings</h2>
-      {!tokenPresent &&
+      {/* {!tokenPresent &&
       <button 
         className={`rounded py-[10px]
           ${theme === 'light' ? "bg-[#fff]" : "bg-[#27374D]"}
@@ -44,7 +45,8 @@ const Dashboard = ({events}) => {
         }>
         <img className="w-[25px] h-[25px] icon inline mr-[10px]" src={Search}></img>
         <span className="buttonText">Sign in with Google</span>
-      </button>}
+      </button>} */}
+      <Intro />
       <div className="flex flex-row mx-[5px] flex-wrap justify-center mb-[100px] sm:mb-[0px]">
         {currentPosts &&
           currentPosts.map((item) => (
