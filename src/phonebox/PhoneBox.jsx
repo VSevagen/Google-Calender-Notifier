@@ -97,7 +97,9 @@ const PhoneBox = () => {
         ))}
       </div>
       {(phoneNumbers?.length > 0 || phoneNumbers?.length === 0)  &&  (phoneNumbers[0]?.name === null || phoneNumbers[0]?.name === undefined) && (
-        <div>No numbers registered yet</div>
+        <div className="sm:w-1/4 bg-[#131112] sm:mx-auto sm:mt-[50px] text-center p-5 rounded-[10px]">
+          <p className={`text-white`}>No numbers registered yet</p>
+        </div>
       )}
       <Header />
     </div>
