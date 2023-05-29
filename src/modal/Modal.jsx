@@ -71,6 +71,7 @@ const Modal = ({ showModal = false, description = '', setShowModal, dateData, ph
       <div className={`
         ${theme === 'light' ? "bg-[#fefefe]" : "bg-[#262626]"}
         ${theme === 'light' ? "border-black" : "border-white"}
+        ${showModal ? "showup" : ""}
         rounded m-auto p-[20px] sm:w-1/2 sm:h-auto mb-[15%] mx-auto border-2 border-solid
         sm:my-[15%] relative z-[2]`}
       >
