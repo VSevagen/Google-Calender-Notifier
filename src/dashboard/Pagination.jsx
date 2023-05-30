@@ -1,11 +1,20 @@
 import React from "react";
 import { ThemeContext } from "../AppWrapper";
 
-const Pagination = ({setPage, currentPage, totalPosts, postPerPage}) => {
+const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) => {
   const paginationNums = [];
   const {theme} = React.useContext(ThemeContext);
   for(let i=1; i<=Math.ceil(totalPosts?.length/postPerPage); i++) {
     paginationNums.push(i);
+  }
+
+  const handleAnimation = () => {
+    if(reference) {
+      reference.current.classList.add("slide-away");
+      setTimeout(() => {reference.current.classList.add("hide-rightside")}, 500);
+      setTimeout(() => {reference.current.classList.add("slide-in")}, 600);
+      setTimeout(() => {reference.current.classList.remove("slide-away", "slide-in", "hide-rightside")}, 1100);
+    }
   }
 
   return (
@@ -17,20 +26,12 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage}) => {
           } 
           disabled={ele === currentPage} 
           onClick={() => {
-            setPage(ele);
+            handleAnimation()
+            setTimeout(() =>{setPage(ele)}, 500);
           }}>
             {ele}
           </button>
       ))}
-      {/* {currentPage !== 1 &&
-        <button onClick={() => {
-          setPage((prev) => prev - 1)
-        }}>Prev</button>
-      }
-
-      <button onClick={() => {
-        setPage((prev) => prev + 1);
-      }}>Next</button> */}
     </div>
   )
 }
