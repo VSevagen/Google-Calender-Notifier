@@ -19,11 +19,25 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) 
 
   return (
     <div className="mt-[10px]">
+      {currentPage !== 1 ?
+        <button
+          className={`mx-2 px-3 py-1 text-white rounded bg-[#a1a1aa]`}
+          onClick={() => {
+            if(currentPage !== 1) {
+              setPage(currentPage - 1)
+            }
+          }}
+        >
+          &lt;
+        </button>
+        :
+        ""
+      }
       {paginationNums.map((ele) => (
         <button 
           className={`mx-2 px-3 py-1 text-white rounded 
             ${(ele === currentPage) ? "bg-[#4b5563]" : "bg-[#a1a1aa]"}`
-          } 
+          }
           disabled={ele === currentPage} 
           onClick={() => {
             handleAnimation()
@@ -32,6 +46,20 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) 
             {ele}
           </button>
       ))}
+      {currentPage !== paginationNums.length ?
+        <button
+          className={`mx-2 px-3 py-1 text-white rounded bg-[#a1a1aa]`}
+          onClick={() => {
+            if(currentPage !== paginationNums.length) {
+              setPage(currentPage + 1);
+            }
+          }}
+        >
+          &gt;
+        </button>
+        :
+        ""
+      }
     </div>
   )
 }
