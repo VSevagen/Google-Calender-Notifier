@@ -8,12 +8,12 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) 
     paginationNums.push(i);
   }
 
-  const handleAnimation = () => {
+  const handleAnimation = (page) => {
     if(reference) {
-      reference.current.classList.add("slide-away");
-      setTimeout(() => {reference.current.classList.add("hide-rightside")}, 500);
+      reference.current.classList.add(page > currentPage ? "slide-away" : "slide-away-reverse");
+      setTimeout(() => {reference.current.classList.add(page > currentPage ? "hide-rightside" : "hide-leftside")}, 500);
       setTimeout(() => {reference.current.classList.add("slide-in")}, 600);
-      setTimeout(() => {reference.current.classList.remove("slide-away", "slide-in", "hide-rightside")}, 1100);
+      setTimeout(() => {reference.current.classList.remove("slide-away", "slide-in", "hide-rightside", "slide-away-reverse", "hide-leftside")}, 1100);
     }
   }
 
@@ -24,7 +24,8 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) 
           className={`mx-2 px-3 py-1 text-white rounded bg-[#a1a1aa]`}
           onClick={() => {
             if(currentPage !== 1) {
-              setPage(currentPage - 1)
+              handleAnimation(currentPage - 1);
+              setTimeout(() => setPage(currentPage - 1), 500);
             }
           }}
         >
@@ -40,7 +41,7 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) 
           }
           disabled={ele === currentPage} 
           onClick={() => {
-            handleAnimation()
+            handleAnimation(ele)
             setTimeout(() =>{setPage(ele)}, 500);
           }}>
             {ele}
@@ -51,7 +52,8 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) 
           className={`mx-2 px-3 py-1 text-white rounded bg-[#a1a1aa]`}
           onClick={() => {
             if(currentPage !== paginationNums.length) {
-              setPage(currentPage + 1);
+              handleAnimation(currentPage + 1);
+              setTimeout(() => setPage(currentPage + 1), 500);
             }
           }}
         >
