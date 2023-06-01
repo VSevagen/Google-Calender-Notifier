@@ -28,10 +28,10 @@ const Dashboard = ({events}) => {
 
   const [tokenPresent] = React.useState(window?.localStorage?.getItem('access_token'));
   return (
-    <div>
+    <div className="mb-[100px]">
       <h2 className={`text-4xl my-3 ${theme === 'light' ? "text-black" : "text-white"}`}>Your meetings</h2>
       <Intro />
-      <div ref={dashRef} className="flex flex-row mx-[5px] flex-wrap justify-center mb-[100px] sm:mb-[0px]">
+      <div ref={dashRef} className="flex flex-row mx-[5px] flex-wrap justify-center">
         {currentPosts &&
           currentPosts.map((item) => (
             <Card item={item} phoneNumbers={numbers}/>
