@@ -4,6 +4,7 @@ export const ThemeContext = React.createContext(null);
 
 const AppWrapper = ({children}) => {
   const [theme, setTheme] = React.useState(window?.sessionStorage?.getItem('theme'));
+  const [tokenPresent] = React.useState(window?.localStorage?.getItem('access_token'));
 
   React.useEffect(() => {
     window?.sessionStorage?.setItem("theme", theme);
@@ -18,7 +19,7 @@ const AppWrapper = ({children}) => {
   }, [theme]);
 
   return (
-    <ThemeContext.Provider value={{theme: theme, setTheme: setTheme}}>
+    <ThemeContext.Provider value={{theme: theme, setTheme: setTheme, tokenPresent: tokenPresent}}>
       {children}
     </ThemeContext.Provider>
   )
