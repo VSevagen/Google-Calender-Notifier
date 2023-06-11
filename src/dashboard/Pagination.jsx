@@ -1,5 +1,6 @@
 import React from "react";
 import { ThemeContext } from "../AppWrapper";
+import { isMobile } from "../helper";
 
 const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) => {
   const paginationNums = [];
@@ -24,8 +25,12 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) 
           className={`mx-2 px-3 py-1 text-white rounded bg-[#a1a1aa]`}
           onClick={() => {
             if(currentPage !== 1) {
-              handleAnimation(currentPage - 1);
-              setTimeout(() => setPage(currentPage - 1), 500);
+              if(isMobile()) {
+                setPage(currentPage - 1);
+              } else {
+                handleAnimation(currentPage - 1);
+                setTimeout(() => setPage(currentPage - 1), 500);
+              }
             }
           }}
         >
@@ -41,8 +46,12 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) 
           }
           disabled={ele === currentPage} 
           onClick={() => {
-            handleAnimation(ele)
-            setTimeout(() =>{setPage(ele)}, 500);
+            if(isMobile()) {
+              setPage(ele);
+            } else {
+              handleAnimation(ele);
+              setTimeout(() =>{setPage(ele)}, 500);
+            }
           }}>
             {ele}
           </button>
@@ -52,8 +61,12 @@ const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) 
           className={`mx-2 px-3 py-1 text-white rounded bg-[#a1a1aa]`}
           onClick={() => {
             if(currentPage !== paginationNums.length) {
-              handleAnimation(currentPage + 1);
-              setTimeout(() => setPage(currentPage + 1), 500);
+              if(isMobile()) {
+                setPage(currentPage + 1);
+              } else {
+                handleAnimation(currentPage + 1);
+                setTimeout(() => setPage(currentPage + 1), 500);
+              }
             }
           }}
         >
