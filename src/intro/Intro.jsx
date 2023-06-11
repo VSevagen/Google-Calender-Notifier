@@ -2,14 +2,13 @@ import React from 'react';
 import Search from '../assets/search.png';
 import { ThemeContext } from '../AppWrapper';
 
-const Intro = () => {
+const Intro = ({tokenPresent}) => {
 
   const { theme } = React.useContext(ThemeContext);
-  const [tokenPresent] = React.useState(window?.localStorage?.getItem('access_token'));
 
   return (
     <>
-    {!tokenPresent &&
+    {tokenPresent === null &&
       <div className={`text-[#f7f7ff] mx-4 sm:w-1/2 sm:mx-auto mt-[50px] sm:mt-[100px] bg-[#131112] px-3 py-5 rounded-[10px]`}>
         <ol>
           <li className="py-2">Sign in using your gmail account to access your meetings</li>
