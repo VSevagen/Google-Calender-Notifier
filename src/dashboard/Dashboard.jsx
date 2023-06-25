@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import './Dashboard.css';
 import Card from './Card';
 import Pagination from './Pagination';
-
-import { NumberContext } from '../App';
 import { ThemeContext } from '../AppWrapper';
 import Intro from '../intro/Intro';
 
+import { getPhoneNumbers } from '../supabaseHelper';
+
 const Dashboard = ({events}) => {
-  const phoneNumbers = useContext(NumberContext)
+  const [phoneNumbers, setPhoneNumbers] = React.useState([]);
   const { theme, tokenPresent } = React.useContext(ThemeContext);
   const [currentPage, setCurrentPage] = React.useState(1);
   const [postPerPage] = React.useState(10);
@@ -18,12 +18,16 @@ const Dashboard = ({events}) => {
   const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPosts = events?.slice(indexOfFirstPost, indexOfLastPost)
 
-  let numbers = [];
-  phoneNumbers?.forEach(element => {
-    if(element?.number !== null) {
-      numbers.push(element?.number);
-    }
-  });
+  React.useLayoutEffect(() => {
+    (async () => {
+      const {data, error} = await getPhoneNumbers();
+      data?.forEach(element => {
+        if(element?.number !== null) {
+          setPhoneNumbers(prev => [...prev, element?.number]);
+        }
+      });
+    })()
+  })
 
   return (
     <div className="mb-[100px]">
@@ -32,7 +36,10 @@ const Dashboard = ({events}) => {
       <div ref={dashRef} className="flex flex-row mx-[5px] flex-wrap justify-center">
         {currentPosts &&
           currentPosts.map((item) => (
-            <Card item={item} phoneNumbers={numbers}/>
+            <Card
+              item={item}
+              phoneNumbers={phoneNumbers}
+            />
           ))
         }
       </div>
