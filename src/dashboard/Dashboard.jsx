@@ -27,7 +27,7 @@ const Dashboard = ({events}) => {
         }
       });
     })()
-  })
+  }, [])
 
   return (
     <div className="mb-[100px]">
