@@ -125,3 +125,71 @@ body {
   transition: 0.5s ease-in-out;
   transform: translateX(0);
 }
+
+@keyframes chartHeight {
+  0% {
+    height: 10px;
+    background-color: #cd0a00;
+  }
+  50% {
+    background-color: #fa8a00;
+  }
+  80% {
+    background-color: #91d700;
+  }
+  100% {
+    height: 90px;
+    background-color: #91d700;
+  }
+}
+
+.bar1 {
+  width: 20px;
+  height: 100px;
+  background-color: #DC3444;
+  position: absolute;
+  bottom: 4px;
+  animation-name: chartHeight;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.bar2 {
+  width: 20px;
+  height: 100px;
+  background-color: #DC3444;
+  position: absolute;
+  bottom: 4px;
+  left: 33px;
+  animation-name: chartHeight;
+  animation-duration: 2.1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.bar3 {
+  width: 20px;
+  height: 100px;
+  background-color: #DC3444;
+  position: absolute;
+  bottom: 4px;
+  left: 56px;
+  animation-name: chartHeight;
+  animation-duration: 2.2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.bar4 {
+  width: 20px;
+  height: 100px;
+  background-color: #DC3444;
+  position: absolute;
+  bottom: 4px;
+  left: 79px;
+  animation-name: chartHeight;
+  animation-duration: 2.3s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
