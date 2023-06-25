@@ -3,12 +3,9 @@ import './App.css';
 import Dashboard from './dashboard/Dashboard';
 import Header from './Header';
 
-// export const NumberContext = createContext(null);
-
 const App = () => {
 
   const [events, setEvents] = React.useState(null);
-  // const [phoneNumbers, setPhoneNumbers] = React.useState();
 
   const formatEvents = (list) => {
     return list.slice(list.length - 25, list.length).map((item) => ({
@@ -48,20 +45,11 @@ const App = () => {
     initClient();
   }, []);
 
-  // React.useLayoutEffect(() => {
-  //   if(window?.localStorage && localStorage.getItem('phoneNumbers') !== null) {
-  //     setPhoneNumbers(JSON.parse(localStorage.getItem('phoneNumbers')));
-  //   } else {
-  //     setPhoneNumbers([{number: null, name: null}]);
-  //   }
-  // }, []);
 
   return (
     <div className="App">
-      {/* <NumberContext.Provider value={phoneNumbers}> */}
-        <Dashboard events={events}/>
-        <Header />
-      {/* </NumberContext.Provider> */}
+      <Dashboard events={events}/>
+      <Header />
     </div>
   );
 }
