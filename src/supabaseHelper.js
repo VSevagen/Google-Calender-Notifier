@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js'
 
+// YOU STUPID NIGGA !!!!
 const supabase = createClient('https://rapdmmwlfnwjqxlwvobv.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJhcGRtbXdsZm53anF4bHd2b2J2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODc2Nzc5NTEsImV4cCI6MjAwMzI1Mzk1MX0.j2ieg4G1S3pLvwJe4MlBgQOJu2VgIIfLenbzgr2i0aE')
 
 export const getPhoneNumbers = async () => {
