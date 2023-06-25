@@ -4,15 +4,13 @@
   "private": true,
   "dependencies": {
     "date-fns": "^2.29.3",
-    "framer-motion": "^6.5.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-loader-spinner": "^5.3.4",
     "react-phone-input-2": "^2.15.1",
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
-    "recharts": "^2.4.3",
-    "styled-components": "^5.3.6"
+    "recharts": "^2.4.3"
   },
   "scripts": {
     "start": "react-scripts start",
