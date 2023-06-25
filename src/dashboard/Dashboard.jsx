@@ -43,7 +43,7 @@ const Dashboard = ({events}) => {
           ))
         }
       </div>
-      {tokenPresent !== null && <Pagination setPage={setCurrentPage} currentPage={currentPage} totalPosts={events} postPerPage={postPerPage} reference={dashRef}/>}
+      {tokenPresent !== null && events !== null && <Pagination setPage={setCurrentPage} currentPage={currentPage} totalPosts={events} postPerPage={postPerPage} reference={dashRef}/>}
     </div>
   );
 }

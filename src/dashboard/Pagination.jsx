@@ -4,7 +4,6 @@ import { isMobile } from "../helper";
 
 const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) => {
   const paginationNums = [];
-  const {theme} = React.useContext(ThemeContext);
   for(let i=1; i<=Math.ceil(totalPosts?.length/postPerPage); i++) {
     paginationNums.push(i);
   }
