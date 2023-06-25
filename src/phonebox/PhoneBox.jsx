@@ -1,28 +1,25 @@
 import React from "react";
-import Call from '../assets/call.png'
 import Header from "../Header";
-
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-import { Dna } from "react-loader-spinner";
 import { ThemeContext } from "../AppWrapper";
 import Form from "./Form";
 
-const PhoneBox = () => {
+import 'react-phone-input-2/lib/style.css'
+import Call from '../assets/call.png'
 
+import { getPhoneNumbers, addPhoneNumber, removePhoneNumber } from "../supabaseHelper";
+
+const PhoneBox = () => {
   const [phoneNumbers, setPhoneNumbers] = React.useState();
   const [newNumber, setNewNumber] = React.useState(null);
   const [newName, setNewName] = React.useState('');
-  // const [countryEnabled, setCountryEnabled] = React.useState(null);
   const { theme } = React.useContext(ThemeContext)
 
-  React.useEffect(() => {
-    if(window?.localStorage && localStorage.getItem('phoneNumbers') !== null) {
-      setPhoneNumbers(JSON.parse(localStorage.getItem('phoneNumbers')));
-    } else {
-      setPhoneNumbers([{number: null, name: null}]);
-    }
-  }, [window?.localStorage]);
+  React.useLayoutEffect(() => {
+    (async () => {
+      const {data, error} = await getPhoneNumbers();
+      setPhoneNumbers(data);
+    })();
+  }, []);
 
   const checkDuplicate = () => {
     let numberData = phoneNumbers;
@@ -31,38 +28,21 @@ const PhoneBox = () => {
     return numberExist === -1 ? false : true;
   }
 
-  const SaveToLocalStorage = (numberData) => {
-    if(window?.localStorage) {
-      localStorage.setItem('phoneNumbers', JSON.stringify(numberData));
-      window.location.reload();
-    }
-  }
-
-  const handleAddNumber = (event) => {
+  const handleAddNumber = async (event) => {
     event.preventDefault();
-    let numberData = phoneNumbers;
-    if(numberData[0]?.name === null) {
-      numberData = [];
-      numberData = [{name: newName, number: newNumber}]
-      SaveToLocalStorage(numberData);
+    if(!checkDuplicate()) {
+      await addPhoneNumber(newName, newNumber);
+      const {data, error} = await getPhoneNumbers();
+      setPhoneNumbers(data);
     } else {
-      if(!checkDuplicate()) {
-        numberData?.push({name: newName, number: newNumber});
-        SaveToLocalStorage(numberData);
-      } else {
-        alert("Number already exists");
-      }
+      alert("Number already exists");
     }
   }
 
-  const removeNumber = (number) => {
-    let numberData = phoneNumbers;
-    const numberToDelete = numberData?.findIndex((item) => item.number === number);
-    numberData.splice(numberToDelete, 1);
-    if(window?.localStorage) {
-      localStorage.setItem('phoneNumbers', JSON.stringify(numberData));
-      window.location.reload();
-    }
+  const removeNumber = async (id) => {
+    await removePhoneNumber(id);
+    const {data, error} = await getPhoneNumbers();
+    setPhoneNumbers(data);
   }
 
   return (
@@ -92,7 +72,7 @@ const PhoneBox = () => {
               <img  className="w-[26px] h-[26px] mr-[5px]" src={Call} alt="Phone icon" />
               {item?.number}
             </div>
-            <button className="bg-[#DC3444] text-white rounded p-1 mt-2 hover:opacity-60" onClick={() => removeNumber(item?.number)}>Delete</button>
+            <button className="bg-[#DC3444] text-white rounded p-1 mt-2 hover:opacity-60" onClick={() => removeNumber(item?.id)}>Delete</button>
           </div>
         ))}
       </div>
