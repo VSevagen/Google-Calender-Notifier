@@ -1,29 +1,32 @@
-# Send SMS with React and Twilio
+# Google Calendar Notifier
 
-This is an example of sending SMS using React and Twilio. It consists of a `SMSForm` component that communicates with a server endpoint to [send SMS messages via the Twilio REST API](https://www.twilio.com/docs/sms/send-messages).
+This is an application that allows you to connect to your google account to fetch your google calendar details and send an SMS to the required parties needed for your meetings.
 
-To see how to build the project yourself, check out the blog post [How to send an SMS from React with Twilio](https://www.twilio.com/blog/send-an-sms-react-twilio).
+## Tech Stack details
+- GIS (Google Identity Service) used to fetch the google calendar meetings for the signed-in person.
+- ReactJS for developing the UI
+- TailwindCSS for styling out the ReactJS components
+- Twillio Messaging Service API used for sending the SMS
+- Supabase for storing/fetching users (phone numbers and name)
 
-This project was created from the [react-express-starter project](https://github.com/philnash/react-express-starter) and includes a React front end and an Express server.
+## Features developed
+- Ability to get your google calender meetings
+- PhoneBook page to store/retrieve/delete phone numbers
+- Stats page for application usage statistics (total message sent, total messages failed, chart showing messages sent every 10 days etc...)
+- Dark/Light mode
+- Sent meeting details to multiple phonenumbers at once
+- Validation check on adding phonenumbers (duplicate, valid phone number etc...)
+- Sliding animation (on desktop view only)
+- Pagination for meeting lists
 
-## Running the project
+## Application
 
-To run the project you will need a Twilio account and a Twilio phone number that can send SMS messages. Gather your Twilio Account Sid and Auth Token from the [Twilio console](https://www.twilio.com/console) and the phone number.
+### Get your meetings
+https://github.com/VSevagen/Google-Calender-Notifier/assets/43094266/89abac47-ea5f-477e-9dd6-d0e1b731e95d
 
-Then, clone the project, change into the directory and install the dependencies.
+### Send an SMS
+https://github.com/VSevagen/Google-Calender-Notifier/assets/43094266/cf437d1c-fe2e-4fea-968c-4eb28ef6d3a4
 
-```bash
-git clone https://github.com/philnash/send-sms-react-twilio.git
-cd send-sms-react-twilio
-npm install
-```
+### Stats page
+<img width="394" alt="Screenshot 2023-07-02 at 09 29 37" src="https://github.com/VSevagen/Google-Calender-Notifier/assets/43094266/8c27b09a-aebe-414d-ba68-93e3e2bfb396">
 
-Copy the `.env.example` file to `.env` and fill in your Twilio credentials and phone number.
-
-Start the application on its own with the command:
-
-```bash
-npm run dev
-```
-
-Open the app at [localhost:3000](http://localhost:3000). You can now use the form to send SMS messages via your Twilio number.
