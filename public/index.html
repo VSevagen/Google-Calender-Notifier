@@ -47,7 +47,7 @@
       let client;
       function InitTokenClient() {
         client = google.accounts.oauth2.initTokenClient({
-          client_id: '628562319450-5060i9u3siu9ftub7jppup1r7b49vm1h.apps.googleusercontent.com',
+          client_id: "%REACT_APP_GOOGLE_OAUTH%",
           callback: (tokenResponse) => {
             access_token = tokenResponse.access_token;
             if(window) {
