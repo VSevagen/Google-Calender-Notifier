@@ -1,5 +1,4 @@
 import React from "react";
-import { ThemeContext } from "../AppWrapper";
 import { isMobile } from "../helper";
 
 const Pagination = ({setPage, currentPage, totalPosts, postPerPage, reference}) => {
