@@ -22,11 +22,12 @@ This is an application that allows you to connect to your google account to fetc
 ## Application
 
 ### Get your meetings
-https://github.com/VSevagen/Google-Calender-Notifier/assets/43094266/89abac47-ea5f-477e-9dd6-d0e1b731e95d
+https://github.com/VSevagen/Google-Calender-Notifier/assets/43094266/2b57f959-ba2e-40ef-9bff-c2375f95ebb1
 
 ### Send an SMS
-https://github.com/VSevagen/Google-Calender-Notifier/assets/43094266/cf437d1c-fe2e-4fea-968c-4eb28ef6d3a4
+https://github.com/VSevagen/Google-Calender-Notifier/assets/43094266/e580145f-eba9-4441-acd8-7156b022fd5d
 
 ### Stats page
-<img width="394" alt="Screenshot 2023-07-02 at 09 29 37" src="https://github.com/VSevagen/Google-Calender-Notifier/assets/43094266/8c27b09a-aebe-414d-ba68-93e3e2bfb396">
+<img width="394" alt="Screenshot 2023-07-02 at 09 29 37" src="https://github.com/VSevagen/Google-Calender-Notifier/assets/43094266/14aeb4fb-86b6-48ab-9aa2-060a6191bfa5">
+
 
